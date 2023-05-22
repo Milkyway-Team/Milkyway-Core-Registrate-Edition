@@ -1,0 +1,23 @@
+{
+  "type": "mw_core:conversion",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/tarnished"
+    },
+    {
+      "fluid": "create:liquid_magic",
+      "nbt": {},
+      "amount": 750
+    }
+  ],
+  "results": [
+    {
+      "item": "mw_core:creative_ingot"
+    },
+    {
+      "fluid": "create:chromatic_waste",
+      "amount": 750
+    }
+  ],
+  "heatRequirement": "superheated"
+}

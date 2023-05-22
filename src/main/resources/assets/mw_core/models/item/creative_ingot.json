@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mw_core:item/creative_ingot",
+    "layer1": "mw_core:item/creative_ingot_glow"
+  }
+}

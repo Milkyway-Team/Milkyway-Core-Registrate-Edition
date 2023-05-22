@@ -6,27 +6,27 @@ license="All rights reserved"
 
 [[mods]] #mandatory
 
-modId="addontemplate" #mandatory
+modId="mw_core" #mandatory
 
 # If you prefer this can be manually set
 version="${file.jarVersion}" #mandatory
 
 # TODO: Add your mods name
-displayName="Create Addon Template" #mandatory
+displayName="Create: Milkyway" #mandatory
 
-logoFile="AddonTemplate.png" #optional
+logoFile="createmilkyway.png" #optional
 
 credits="Rabbitminers" #optional
 
 # TODO: Add your name here
-authors="yourname" #optional
+authors="pouffydev" #optional
 # The description text for the mod (multi line!) (#mandatory)
 # TODO: Describe your mod
 description='''
 A template for create addons on Create 0.5.i
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.addontemplate]] #optional
+[[dependencies.mw_core]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -38,7 +38,7 @@ A template for create addons on Create 0.5.i
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.addontemplate]]
+[[dependencies.mw_core]]
     modId="minecraft"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
@@ -46,9 +46,9 @@ A template for create addons on Create 0.5.i
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.addontemplate]]
-    modId="create"
-    mandatory=true
-    versionRange="[0.5.0.d,)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.mw_core]]
+modId="create"
+mandatory=true
+versionRange="[0.5.1.a,)"
+ordering="NONE"
+side="BOTH"

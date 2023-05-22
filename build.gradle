@@ -33,21 +33,21 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 // TODO: Replace update runs (swap addontemplate for your mod id)
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
 
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
     runs {
         client {
             workingDirectory project.file('run')
-            arg '-mixin.config=addontemplate.mixins.json'
+            arg '-mixin.config=mw_core.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'addontemplate'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             mods {
-                addontemplate {
+                mw_core {
                     source sourceSets.main
                 }
             }
@@ -55,14 +55,14 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg '-mixin.config=addontemplate.mixins.json'
+            arg '-mixin.config=mw_core.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'addontemplate'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             mods {
-                addontemplate {
+                mw_core {
                     source sourceSets.main
                 }
             }
@@ -76,7 +76,7 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             mods {
-                addontemplate {
+                mw_core {
                     source sourceSets.main
                 }
             }
@@ -86,9 +86,9 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'addontemplate', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'mw_core', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
-                addontemplate {
+                mw_core {
                     source sourceSets.main
                 }
             }
@@ -103,23 +103,21 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
 
     maven {
-        // JEI
-        name 'Progwm16 maven'
-        url 'https://dvs1.progwml6.com/files/maven'
+        name = 'Progwm16 maven'
+        url = 'https://dvs1.progwml6.com/files/maven'
     }
     maven {
-        // Mixed mappings, Registrate, Flywheel
-        name 'tterrag maven'
-        url 'https://maven.tterrag.com'
+        name = 'tterrag maven'
+        url = 'https://maven.tterrag.com/'
     }
     maven {
-        url 'https://www.cursemaven.com'
+        url = 'https://www.cursemaven.com'
         content {
             includeGroup "curse.maven"
         }
     }
     maven {
-        url "https://maven.tterrag.com/"
+        url = "https://maven.tterrag.com/"
     }
 }
 
@@ -128,9 +126,9 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // Create Flywheel and Registrate
-    implementation fg.deobf("com.simibubi.create:create-${minecraft_version}:${create_version}:all") { transitive = false }
-    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${flywheel_version}")
-    compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
     // JEI
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
@@ -145,14 +143,14 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "AddonTemplate",
-                "Specification-Vendor"    : "AddonTemplatesareus",
+                "Specification-Title"     : "MilkywayCore",
+                "Specification-Vendor"    : "PouffyDev",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "AddonTemplatesareus",
+                "Implementation-Vendor"   : "PouffyDev",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs": "addontemplate.mixins.json" // TODO: update this for your modid
+                "MixinConfigs": "mw_core.mixins.json" // TODO: update this for your modid
         ])
     }
 }

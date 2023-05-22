@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:ingots/aluminum"
+    }
+  },
+  "result": {
+    "item": "mw_core:aluminum_block"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "forge:gems/radiant_quartz"
+    }
+  ],
+  "results": [
+    {
+      "item": "mw_core:radiant_quartz_sheet"
+    }
+  ]
+}

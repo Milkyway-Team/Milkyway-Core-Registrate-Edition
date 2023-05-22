@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mw_core:item/chromatic_steel_0",
+    "layer1": "mw_core:item/chromatic_steel_1",
+    "layer2": "mw_core:item/chromatic_steel_2"
+  }
+}
