@@ -1,0 +1,15 @@
+{
+  "fluid.mw_core.molten_transium": "Molten Transium",
+  "fluid.mw_core.molten_creatite": "Molten Creatite",
+  "fluid.mw_core.chromatic_waste": "Chromatic Waste",
+  "fluid.mw_core.molten_creativity": "Molten Creativity",
+  "fluid.mw_core.molten_tarnished_creativity": "Molten Tarnished Creativity",
+  "fluid.mw_core.liquid_magic": "Liquid Magic",
+
+  "item.mw_core.molten_transium_bucket": "Bucket of Molten Transium",
+  "item.mw_core.molten_creatite_bucket": "Bucket of Molten Creatite",
+  "item.mw_core.chromatic_waste_bucket": "Bucket of Chromatic Waste",
+  "item.mw_core.molten_creativity_bucket": "Bucket of Molten Creativity",
+  "item.mw_core.molten_tarnished_creativity_bucket": "Bucket of Molten Tarnished Creativity",
+  "item.mw_core.liquid_magic_bucket": "Bucket of Liquid Magic"
+}

@@ -5,6 +5,7 @@
 	"block.mw_core.aluminum_block": "Block of Aluminum",
 	"block.mw_core.aluminum_casing": "Aluminum Casing",
 	"block.mw_core.aluminum_ore": "Bauxite Ore",
+	"block.mw_core.combustion_engine": "Combustion Engine",
 	"block.mw_core.converter": "Converter",
 	"block.mw_core.creative_block": "Block of Creativity",
 	"block.mw_core.deepslate_aluminum_ore": "Deepslate Bauxite Ore",
@@ -16,14 +17,12 @@
 
 	"item.mw_core.aluminum_ingot": "Aluminum Ingot",
 	"item.mw_core.amethyst_bronze_sheet": "Amethyst Bronze Sheet",
-	"item.mw_core.chromatic_alloy": "Chromatic Alloy",
 	"item.mw_core.chromatic_steel": "Chromatic Steel",
 	"item.mw_core.cobalt_sheet": "Cobalt Sheet",
 	"item.mw_core.constantan_sheet": "Constantan Sheet",
 	"item.mw_core.creatite_infused_chromatic_steel": "Creatite Infused Chromatic Steel",
 	"item.mw_core.creative_fiber": "Creative Fiber",
 	"item.mw_core.creative_ingot": "Ingot of Creativity",
-	"item.mw_core.crushed_transium": "Crushed Transium",
 	"item.mw_core.diamond_quartz": "Diamond Quartz",
 	"item.mw_core.diamond_sheet": "Diamond Sheet",
 	"item.mw_core.electrum_sheet": "Electrum Sheet",
@@ -42,7 +41,6 @@
 	"item.mw_core.radiant_quartz_dust": "Radiant Quartz Dust",
 	"item.mw_core.radiant_quartz_sheet": "Radiant Quartz Sheet",
 	"item.mw_core.radiant_steel": "Radiant Steel",
-	"item.mw_core.rave_tube": "Rave Tube",
 	"item.mw_core.raw_aluminum": "Raw Aluminum",
 	"item.mw_core.reinforced_brass_sheet": "Reinforced Brass Sheet",
 	"item.mw_core.reinforced_copper_sheet": "Reinforced Copper Sheet",
@@ -73,6 +71,7 @@
 	"item.mw_core.sturdy_steel_sheet": "Sturdy Steel Sheet",
 	"item.mw_core.sturdy_tin_sheet": "Sturdy Tin Sheet",
 	"item.mw_core.sturdy_zinc_sheet": "Sturdy Zinc Sheet",
+	"item.mw_core.tarnished_deforester": "Tarnished Deforester",
 	"item.mw_core.tarnished_ingot": "Ingot of Tarnished Creativity",
 	"item.mw_core.tin_sheet": "Tin Sheet",
 	"item.mw_core.transium_ingot": "Transium Ingot",
@@ -86,17 +85,35 @@
 	"item.mw_core.unprocessed_zinc_sheet": "Unprocessed Zinc Sheet",
 
 
-	"_": "->------------------------]  UI & Messages  [------------------------<-",
+	"_": "->------------------------]  Create: Milkyway's UI & Messages  [------------------------<-",
 
 	"itemGroup.mw_core": "Create: Milkyway",
 
 
-	"_": "->------------------------]  Item Descriptions  [------------------------<-",
+	"_": "->------------------------]  Create: Milkyway's Item Descriptions  [------------------------<-",
 
 
 
-	"_": "->------------------------]  Ponder Content  [------------------------<-",
+	"_": "->------------------------]  Create: Milkyway's Tinkers' Construct Compatibility  [------------------------<-",
 
+	"material.mw_core.transium": "Transium",
+
+
+	"_": "->------------------------]  Create: Milkyway's Fluids  [------------------------<-",
+
+	"fluid.mw_core.molten_transium": "Molten Transium",
+	"fluid.mw_core.molten_creatite": "Molten Creatite",
+	"fluid.mw_core.chromatic_waste": "Chromatic Waste",
+	"fluid.mw_core.molten_creativity": "Molten Creativity",
+	"fluid.mw_core.molten_tarnished_creativity": "Molten Tarnished Creativity",
+	"fluid.mw_core.liquid_magic": "Liquid Magic",
+
+	"item.mw_core.molten_transium_bucket": "Bucket of Molten Transium",
+	"item.mw_core.molten_creatite_bucket": "Bucket of Molten Creatite",
+	"item.mw_core.chromatic_waste_bucket": "Bucket of Chromatic Waste",
+	"item.mw_core.molten_creativity_bucket": "Bucket of Molten Creativity",
+	"item.mw_core.molten_tarnished_creativity_bucket": "Bucket of Molten Tarnished Creativity",
+	"item.mw_core.liquid_magic_bucket": "Bucket of Liquid Magic",
 
 	"_": "Thank you for translating Create: Milkyway!"
 

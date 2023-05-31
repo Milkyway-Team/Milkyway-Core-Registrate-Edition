@@ -1,7 +1,6 @@
 package com.pouffydev.mw_core.content.items;
 
 import com.pouffydev.mw_core.content.items.dohickies.NoGravInventoryCreativeDohicky;
-import com.pouffydev.mw_core.content.items.dohickies.NoGravInventoryDohicky;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;

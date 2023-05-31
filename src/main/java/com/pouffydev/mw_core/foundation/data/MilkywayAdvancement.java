@@ -25,7 +25,7 @@ import java.util.function.UnaryOperator;
 public class MilkywayAdvancement {
 
 	static final ResourceLocation BACKGROUND = MWCore.asResource("textures/gui/advancements.png");
-	static final String LANG = "advancement." + MWCore.MODID + ".";
+	static final String LANG = "advancement." + MWCore.ID + ".";
 	static final String SECRET_SUFFIX = "\u00A77\n(Hidden Advancement)";
 
 	private Advancement.Builder builder;

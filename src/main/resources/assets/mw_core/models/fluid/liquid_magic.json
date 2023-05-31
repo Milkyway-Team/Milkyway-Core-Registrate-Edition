@@ -1,0 +1,7 @@
+{
+  "loader": "mantle:fluid_texture",
+  "textures": {
+    "still": "mw_core:fluid/liquid_magic/still",
+    "flowing": "mw_core:fluid/liquid_magic/flowing"
+  }
+}

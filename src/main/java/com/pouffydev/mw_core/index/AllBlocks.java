@@ -3,12 +3,13 @@ package com.pouffydev.mw_core.index;
 import com.pouffydev.mw_core.MWCore;
 import com.pouffydev.mw_core.MWSpriteShifts;
 import com.pouffydev.mw_core.content.block.contraptions.converter.ConverterBlock;
-import com.pouffydev.mw_core.content.block.tarnished.motor.TarnishedMotorBlock;
-import com.pouffydev.mw_core.content.block.tarnished.motor.TarnishedMotorGenerator;
+import com.pouffydev.mw_core.content.block.generators.combustion.CombustionEngineBlock;
+import com.pouffydev.mw_core.content.block.generators.motor.TarnishedMotorBlock;
+import com.pouffydev.mw_core.content.block.generators.motor.TarnishedMotorGenerator;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.contraptions.base.CasingBlock;
-import com.simibubi.create.content.contraptions.components.AssemblyOperatorBlockItem;
-import com.simibubi.create.foundation.block.BlockStressDefaults;
+import com.simibubi.create.content.decoration.encasing.CasingBlock;
+import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.foundation.data.*;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
@@ -30,7 +31,6 @@ import net.minecraftforge.common.Tags;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.*;
 
-@SuppressWarnings("removal")
 public class AllBlocks {
     private static final CreateRegistrate REGISTRATE = MWCore.registrate().creativeModeTab(
             () -> MWCore.itemGroup
@@ -215,6 +215,18 @@ public class AllBlocks {
                             .pattern("R")
                             .unlockedBy("has_item", RegistrateRecipeProvider.has(ctx.get()))
                             .save(prov))
+                    .register();
+
+    public static final BlockEntry<CombustionEngineBlock> COMBUSTION_ENGINE =
+            REGISTRATE.block("combustion_engine", CombustionEngineBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.color(MaterialColor.PODZOL))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .transform(axeOrPickaxe())
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .transform(BlockStressDefaults.setCapacity(32.0))
+                    .item()
+                    .transform(customItemModel())
                     .register();
     public static void register() {}
 }

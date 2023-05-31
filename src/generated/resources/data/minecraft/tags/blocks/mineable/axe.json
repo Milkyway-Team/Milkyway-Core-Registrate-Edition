@@ -4,6 +4,7 @@
     "mw_core:radiant_casing",
     "mw_core:tarnished_casing",
     "mw_core:aluminum_casing",
-    "mw_core:converter"
+    "mw_core:converter",
+    "mw_core:combustion_engine"
   ]
 }

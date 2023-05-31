@@ -5,6 +5,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,11 +17,29 @@ public class NoGravInventoryCreativeDohicky extends Item {
     private final ParticleOptions particle2;
     private final ParticleOptions particle3;
     private boolean tarnished;
+    private final Boolean isImmune;
+
     public NoGravInventoryCreativeDohicky(Properties properties, ParticleOptions particle1, ParticleOptions particle2, ParticleOptions particle3) {
         super(properties);
         this.particle1 = particle1;
         this.particle2 = particle2;
         this.particle3 = particle3;
+        this.isImmune = false;
+    }
+    public NoGravInventoryCreativeDohicky(Properties properties, ParticleOptions particle1, ParticleOptions particle2, ParticleOptions particle3, boolean isImmune) {
+        super(properties);
+        this.isImmune = isImmune;
+        this.particle1 = particle1;
+        this.particle2 = particle2;
+        this.particle3 = particle3;
+    }
+
+    public boolean isImmune() {
+        return this.isImmune;
+    }
+    @Override
+    public boolean canBeHurtBy(DamageSource damageSource) {
+        return !this.isImmune || !damageSource.equals(DamageSource.CACTUS) && !damageSource.isExplosion() && !damageSource.equals(DamageSource.ANVIL);
     }
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
         Level world = entity.level;

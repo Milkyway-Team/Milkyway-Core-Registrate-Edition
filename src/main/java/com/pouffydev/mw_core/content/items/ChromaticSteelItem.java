@@ -1,22 +1,20 @@
 package com.pouffydev.mw_core.content.items;
 
 import com.pouffydev.mw_core.index.AllItems;
-import com.simibubi.create.content.contraptions.relays.belt.transport.TransportedItemStack;
-import com.simibubi.create.foundation.config.AllConfigs;
-import com.simibubi.create.foundation.config.CRecipes;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.belt.TransportedItemStackHandlerBehaviour;
+import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour;
+import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Color;
 import com.simibubi.create.foundation.utility.VecHelper;
+import com.simibubi.create.infrastructure.config.AllConfigs;
+import com.simibubi.create.infrastructure.config.CRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -47,13 +45,13 @@ public class ChromaticSteelItem extends Item {
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        return Math.round(13.0F * getLight(stack) / AllConfigs.SERVER.recipes.lightSourceCountForRefinedRadiance.get());
+        return Math.round(13.0F * getLight(stack) / AllConfigs.server().recipes.lightSourceCountForRefinedRadiance.get());
     }
 
     @Override
     public int getBarColor(ItemStack stack) {
         return Color.mixColors(0x552579, 0xFFFFFF,
-                getLight(stack) / (float) AllConfigs.SERVER.recipes.lightSourceCountForRefinedRadiance.get());
+                getLight(stack) / (float) AllConfigs.server().recipes.lightSourceCountForRefinedRadiance.get());
     }
 
     @Override
@@ -67,7 +65,7 @@ public class ChromaticSteelItem extends Item {
         CompoundTag itemData = entity.getItem()
                 .getOrCreateTag();
         Vec3 positionVec = entity.position();
-        CRecipes config = AllConfigs.SERVER.recipes;
+        CRecipes config = AllConfigs.server().recipes;
 
         if (world.isClientSide) {
             int light = itemData.getInt("CollectingLight");
@@ -162,7 +160,7 @@ public class ChromaticSteelItem extends Item {
         BlockState state = world.getBlockState(randomOffset);
 
         TransportedItemStackHandlerBehaviour behaviour =
-                TileEntityBehaviour.get(world, randomOffset, TransportedItemStackHandlerBehaviour.TYPE);
+                BlockEntityBehaviour.get(world, randomOffset, TransportedItemStackHandlerBehaviour.TYPE);
 
         // Find a placed light source
         if (behaviour == null) {

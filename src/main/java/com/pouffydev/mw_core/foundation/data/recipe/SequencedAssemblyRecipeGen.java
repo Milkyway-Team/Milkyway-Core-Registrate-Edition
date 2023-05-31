@@ -1,7 +1,7 @@
 package com.pouffydev.mw_core.foundation.data.recipe;
 
 import com.simibubi.create.Create;
-import com.simibubi.create.content.contraptions.itemAssembly.SequencedAssemblyRecipeBuilder;
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 
 import java.util.function.UnaryOperator;

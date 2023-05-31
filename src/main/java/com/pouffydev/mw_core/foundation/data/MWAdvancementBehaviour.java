@@ -1,8 +1,8 @@
 package com.pouffydev.mw_core.foundation.data;
 
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.BehaviourType;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,14 +17,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class MWAdvancementBehaviour extends TileEntityBehaviour {
+public class MWAdvancementBehaviour extends BlockEntityBehaviour {
 
     public static final BehaviourType<MWAdvancementBehaviour> TYPE = new BehaviourType<>();
 
     private UUID playerId;
     private Set<MilkywayAdvancement> advancements;
 
-    public MWAdvancementBehaviour(SmartTileEntity te, MilkywayAdvancement... advancements) {
+    public MWAdvancementBehaviour(SmartBlockEntity te, MilkywayAdvancement... advancements) {
         super(te);
         this.advancements = new HashSet<>();
         add(advancements);
@@ -45,7 +45,7 @@ public class MWAdvancementBehaviour extends TileEntityBehaviour {
             return;
         playerId = id;
         removeAwarded();
-        tileEntity.setChanged();
+        blockEntity.setChanged();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MWAdvancementBehaviour extends TileEntityBehaviour {
         advancements.removeIf(c -> c.isAlreadyAwardedTo(player));
         if (advancements.isEmpty()) {
             playerId = null;
-            tileEntity.setChanged();
+            blockEntity.setChanged();
         }
     }
 
@@ -113,13 +113,13 @@ public class MWAdvancementBehaviour extends TileEntityBehaviour {
     }
 
     public static void tryAward(BlockGetter reader, BlockPos pos, MilkywayAdvancement advancement) {
-        MWAdvancementBehaviour behaviour = TileEntityBehaviour.get(reader, pos, MWAdvancementBehaviour.TYPE);
+        MWAdvancementBehaviour behaviour = BlockEntityBehaviour.get(reader, pos, MWAdvancementBehaviour.TYPE);
         if (behaviour != null)
             behaviour.awardPlayer(advancement);
     }
 
     public static void setPlacedBy(Level worldIn, BlockPos pos, LivingEntity placer) {
-        MWAdvancementBehaviour behaviour = TileEntityBehaviour.get(worldIn, pos, TYPE);
+        MWAdvancementBehaviour behaviour = BlockEntityBehaviour.get(worldIn, pos, TYPE);
         if (behaviour == null)
             return;
         if (placer instanceof FakePlayer)

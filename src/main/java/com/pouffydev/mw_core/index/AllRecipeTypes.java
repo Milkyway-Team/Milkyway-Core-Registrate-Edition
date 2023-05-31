@@ -2,10 +2,10 @@ package com.pouffydev.mw_core.index;
 
 import com.pouffydev.mw_core.MWCore;
 import com.pouffydev.mw_core.content.block.contraptions.converter.ConversionRecipe;
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeBuilder;
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeSerializer;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.recipe.IRecipeTypeInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -91,7 +91,7 @@ public enum AllRecipeTypes implements IRecipeTypeInfo {
 
 
     private static class Registers {
-        private static final DeferredRegister<RecipeSerializer<?>> SERIALIZER_REGISTER = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MWCore.MODID);
-        private static final DeferredRegister<RecipeType<?>> TYPE_REGISTER = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, MWCore.MODID);
+        private static final DeferredRegister<RecipeSerializer<?>> SERIALIZER_REGISTER = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MWCore.ID);
+        private static final DeferredRegister<RecipeType<?>> TYPE_REGISTER = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, MWCore.ID);
     }
 }

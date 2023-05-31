@@ -4,21 +4,21 @@ import com.pouffydev.mw_core.index.AllFluids;
 import com.pouffydev.mw_core.index.AllItems;
 import com.pouffydev.mw_core.index.AllRecipeTypes;
 import com.pouffydev.mw_core.index.AllTags;
-import com.simibubi.create.content.contraptions.processing.HeatCondition;
+import com.simibubi.create.content.processing.recipe.HeatCondition;
 import net.minecraft.data.DataGenerator;
 
 public class ConversionRecipeGen extends MWProcessingRecipeGen {
 
-    GeneratedRecipe
-            TEMP_LAVA = create("tarnished_purification", b -> b
-            .require(AllFluids.liquidMagic.get(), 750)
-            .require(AllTags.forgeItemTag("ingots/tarnished"))
-            .output(AllFluids.chromaticWaste.get(), 750)
-            .output(AllItems.CREATIVE_INGOT.get(), 1)
-            .requiresHeat(HeatCondition.SUPERHEATED))
+    //GeneratedRecipe
+            //TEMP_LAVA = create("tarnished_purification", b -> b
+            //.require(AllFluids.liquidMagic.get(), 750)
+            //.require(AllTags.forgeItemTag("ingots/tarnished"))
+            //.output(AllFluids.chromaticWaste.get(), 750)
+            //.output(AllItems.CREATIVE_INGOT.get(), 1)
+            //.requiresHeat(HeatCondition.SUPERHEATED))
 
 
-    ;
+    //;
 
 
 

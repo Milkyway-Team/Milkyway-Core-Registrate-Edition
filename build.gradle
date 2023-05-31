@@ -101,7 +101,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 // JEI has been included although in the development enviroment although it is not strictly required for create
 repositories {
-
     maven {
         name = 'Progwm16 maven'
         url = 'https://dvs1.progwml6.com/files/maven'
@@ -123,6 +122,8 @@ repositories {
 
 dependencies {
 
+    implementation 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.projectlombok:lombok:1.18.22'
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // Create Flywheel and Registrate
@@ -130,6 +131,8 @@ dependencies {
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
+    implementation fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tcon_version}")
+    implementation fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
     // JEI
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")

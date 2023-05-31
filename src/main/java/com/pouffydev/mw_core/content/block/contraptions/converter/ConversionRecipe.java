@@ -1,8 +1,8 @@
 package com.pouffydev.mw_core.content.block.contraptions.converter;
 
 import com.pouffydev.mw_core.index.AllRecipeTypes;
-import com.simibubi.create.content.contraptions.processing.BasinRecipe;
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeBuilder;
+import com.simibubi.create.content.processing.basin.BasinRecipe;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

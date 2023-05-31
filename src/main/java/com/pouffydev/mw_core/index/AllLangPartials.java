@@ -2,18 +2,17 @@ package com.pouffydev.mw_core.index;
 
 import com.google.gson.JsonElement;
 import com.pouffydev.mw_core.MWCore;
-import com.pouffydev.mw_core.foundation.data.MWPonderLocalization;
 import com.simibubi.create.foundation.data.LangPartial;
-import com.simibubi.create.foundation.ponder.PonderLocalization;
 import com.simibubi.create.foundation.utility.Lang;
 
 import java.util.function.Supplier;
 
 public enum AllLangPartials implements LangPartial {
 
-    INTERFACE("UI & Messages"),
-    TOOLTIPS("Item Descriptions"),
-    PONDER("Ponder Content", MWPonderLocalization::provideLangEntries),
+    INTERFACE("Create: Milkyway's UI & Messages"),
+    TOOLTIPS("Create: Milkyway's Item Descriptions"),
+    TINKERS("Create: Milkyway's Tinkers' Construct Compatibility"),
+    FLUIDS("Create: Milkyway's Fluids"),
 
             ;
 
@@ -23,7 +22,7 @@ public enum AllLangPartials implements LangPartial {
     private AllLangPartials(String displayName) {
         this.displayName = displayName;
         String fileName = Lang.asId(name());
-        this.provider = () -> LangPartial.fromResource(MWCore.MODID, fileName);
+        this.provider = () -> LangPartial.fromResource(MWCore.ID, fileName);
     }
 
     private AllLangPartials(String displayName, Supplier<JsonElement> provider) {

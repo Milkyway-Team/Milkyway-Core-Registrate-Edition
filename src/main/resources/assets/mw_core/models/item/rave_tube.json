@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "mw_core:item/tube_0",
-    "layer1": "mw_core:item/tube_1"
-  }
-}

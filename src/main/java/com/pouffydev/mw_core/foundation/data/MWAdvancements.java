@@ -35,25 +35,25 @@ public class MWAdvancements implements DataProvider {
             .description("Advancement tree for Milkyway Core")
             .awardedForFree()
             .special(SILENT)),
-    CONVERTER = create("converter", b -> b.icon(AllBlocks.MECHANICAL_CONVERTER)
-            .title("The Sturdiest Rocks")
-            .description("Assemble a Sturdy Sheet by refining Powdered Obsidian")
-            .after(ROOT)),
-    TARNISHED_CREATIVITY = create("tarnished_creativity", b -> b.icon(AllItems.TARNISHED_INGOT)
-            .title("The Sturdiest Rocks")
-            .description("Assemble a Sturdy Sheet by refining Powdered Obsidian")
-            .whenIconCollected()
-            .after(CONVERTER)),
-    CREATIVITY = create("creativity", b -> b.icon(AllItems.CREATIVE_INGOT)
-            .title("The Sturdiest Rocks")
-            .description("Assemble a Sturdy Sheet by refining Powdered Obsidian")
-            .whenIconCollected()
-            .after(TARNISHED_CREATIVITY)),
-    CREATIVITY_CRAFTING = create("creativity_factory", b -> b.icon(AllBlocks.MECHANICAL_CONVERTER)
-            .title("Track Factory")
-            .description("Produce more than 1000 Ingots of Creativity with the same Mechanical Converter")
-            .after(CREATIVITY)
-            .special(EXPERT)),
+    //CONVERTER = create("converter", b -> b.icon(AllBlocks.MECHANICAL_CONVERTER)
+    //        .title("The Sturdiest Rocks")
+    //        .description("Assemble a Sturdy Sheet by refining Powdered Obsidian")
+    //        .after(ROOT)),
+    //TARNISHED_CREATIVITY = create("tarnished_creativity", b -> b.icon(AllItems.TARNISHED_INGOT)
+    //        .title("The Sturdiest Rocks")
+    //        .description("Assemble a Sturdy Sheet by refining Powdered Obsidian")
+    //        .whenIconCollected()
+    //        .after(CONVERTER)),
+    //CREATIVITY = create("creativity", b -> b.icon(AllItems.CREATIVE_INGOT)
+    //        .title("The Sturdiest Rocks")
+    //        .description("Assemble a Sturdy Sheet by refining Powdered Obsidian")
+    //        .whenIconCollected()
+    //        .after(TARNISHED_CREATIVITY)),
+    //CREATIVITY_CRAFTING = create("creativity_factory", b -> b.icon(AllBlocks.MECHANICAL_CONVERTER)
+    //        .title("Track Factory")
+    //        .description("Produce more than 1000 Ingots of Creativity with the same Mechanical Converter")
+    //        .after(CREATIVITY)
+    //        .special(EXPERT)),
 
 
 

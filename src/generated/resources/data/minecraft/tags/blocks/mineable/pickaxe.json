@@ -11,6 +11,7 @@
     "mw_core:radiant_quartz_block",
     "mw_core:creative_block",
     "mw_core:tarnished_block",
-    "mw_core:converter"
+    "mw_core:converter",
+    "mw_core:combustion_engine"
   ]
 }

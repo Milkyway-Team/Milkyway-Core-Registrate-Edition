@@ -1,11 +1,12 @@
 package com.pouffydev.mw_core.foundation.data.recipe;
 
 import com.simibubi.create.Create;
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipe;
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeBuilder;
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeSerializer;
+
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
-import com.simibubi.create.foundation.utility.recipe.IRecipeTypeInfo;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -63,7 +64,7 @@ public abstract class MWProcessingRecipeGen extends MilkywayRecipeProvider {
     }
 
     protected <T extends ProcessingRecipe<?>> GeneratedRecipe create(String namespace,
-                                                                                          Supplier<ItemLike> singleIngredient, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
+                                                                     Supplier<ItemLike> singleIngredient, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
         ProcessingRecipeSerializer<T> serializer = getSerializer();
         GeneratedRecipe generatedRecipe = c -> {
             ItemLike iItemProvider = singleIngredient.get();

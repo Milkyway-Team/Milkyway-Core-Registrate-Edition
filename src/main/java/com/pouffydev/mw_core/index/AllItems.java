@@ -4,8 +4,9 @@ import com.pouffydev.mw_core.MWCore;
 import com.pouffydev.mw_core.content.items.ChromaticSteelItem;
 import com.pouffydev.mw_core.content.items.RadiantSteelItem;
 import com.pouffydev.mw_core.content.items.ShadowSteelItem;
-import com.pouffydev.mw_core.content.items.dohickies.*;
-import com.simibubi.create.content.curiosities.ChromaticCompoundColor;
+import com.pouffydev.mw_core.content.items.dohickies.FloatingParticleItem;
+import com.pouffydev.mw_core.content.items.dohickies.RadiantQuartzItem;
+import com.pouffydev.mw_core.content.items.tools.deforester.TarnishedDeforesterItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
@@ -98,11 +99,9 @@ public class AllItems {
     public static final ItemEntry<RadiantQuartzItem> RADIANT_QUARTZ_DUST = REGISTRATE.item("radiant_quartz_dust", RadiantQuartzItem::new)
             .properties(Item.Properties::fireResistant)
             .register();
-    public static final ItemEntry<FloatingParticleItem> CREATIVE_INGOT = REGISTRATE.item("creative_ingot", (props) -> new FloatingParticleItem(props, ParticleTypes.REVERSE_PORTAL, ParticleTypes.PORTAL, ParticleTypes.DRIPPING_OBSIDIAN_TEAR))
+    public static final ItemEntry<FloatingParticleItem> CREATIVE_INGOT = REGISTRATE.item("creative_ingot", (props) -> new FloatingParticleItem(props, ParticleTypes.REVERSE_PORTAL, ParticleTypes.PORTAL, ParticleTypes.DRIPPING_OBSIDIAN_TEAR, true))
             .properties(p->p.tab(MWCore.itemGroup).rarity(Rarity.EPIC).fireResistant())
             .tag(AllTags.forgeItemTag("ingots/creative"))
-            .model(AssetLookup.existingItemModel())
-            .color(() -> (() -> new ThreeLayerMixColors(0xffffff, 0xffffff, 0xf6c5f1, 0xd93ed0, 0xffffff, 0xffffff)))
             .lang("Ingot of Creativity")
             .register();
     public static final ItemEntry<Item> CREATIVE_FIBER = REGISTRATE.item("creative_fiber", Item::new)
@@ -115,20 +114,12 @@ public class AllItems {
     public static final ItemEntry<ChromaticSteelItem> CHROMATIC_STEEL = REGISTRATE.item("chromatic_steel", ChromaticSteelItem::new)
             .properties(p->p.tab(MWCore.itemGroup).rarity(Rarity.UNCOMMON))
             .tag(AllTags.forgeItemTag("ingots/chromatic_steel"))
-            .model(AssetLookup.existingItemModel())
-            .color(() -> ChromaticCompoundColor::new)
             .register();
     public static final ItemEntry<RadiantSteelItem> RADIANT_STEEL = REGISTRATE.item("radiant_steel", (props) -> new RadiantSteelItem(props, ParticleTypes.END_ROD, ParticleTypes.ELECTRIC_SPARK, ParticleTypes.GLOW))
                     .properties(p -> p.rarity(Rarity.UNCOMMON))
                     .register();
     public static final ItemEntry<ShadowSteelItem> SHADOW_STEEL = REGISTRATE.item("shadow_steel", (props) -> new ShadowSteelItem(props, ParticleTypes.ASH, ParticleTypes.ENTITY_EFFECT, ParticleTypes.SMOKE))
             .properties(p -> p.rarity(Rarity.UNCOMMON))
-            .register();
-    public static final ItemEntry<ChromaticSteelItem> CHROMATIC_ALLOY = REGISTRATE.item("chromatic_alloy", ChromaticSteelItem::new)
-            .properties(p->p.tab(MWCore.itemGroup).rarity(Rarity.UNCOMMON))
-            .tag(AllTags.forgeItemTag("ingots/chromatic_alloy"))
-            .model(AssetLookup.existingItemModel())
-            .color(() -> ChromaticAlloyColor::new)
             .register();
     public static final ItemEntry<Item> RAW_ALUMINUM = REGISTRATE.item("raw_aluminum", Item::new)
             .properties(p->p.tab(MWCore.itemGroup))
@@ -149,27 +140,16 @@ public class AllItems {
     public static final ItemEntry<Item> TRANSIUM_INGOT = REGISTRATE.item("transium_ingot", Item::new)
             .properties(p->p.tab(MWCore.itemGroup))
             .tag(AllTags.forgeItemTag("ingots/transium"))
-            .model(AssetLookup.existingItemModel())
-            .color(() -> TransiumColor::new)
             .register();
-    public static final ItemEntry<Item> CRUSHED_TRANSIUM = REGISTRATE.item("crushed_transium", Item::new)
-            .properties(p->p.tab(MWCore.itemGroup))
-            .tag(AllTags.AllItemTags.CRUSHED_ORE.tag)
-            .model(AssetLookup.existingItemModel())
-            .color(() -> TransiumColor::new)
-            .register();
-    public static final ItemEntry<Item> RAVE_TUBE = REGISTRATE.item("rave_tube", Item::new)
-            .properties(p->p.tab(MWCore.itemGroup))
-            .model(AssetLookup.existingItemModel())
-            .color(() -> RainbowColor::new)
-            .register();
-
-    public static final ItemEntry<FloatingParticleItem> TARNISHED_INGOT = REGISTRATE.item("tarnished_ingot", (props) -> new FloatingParticleItem(props, DustParticleOptions.REDSTONE, ParticleTypes.ELECTRIC_SPARK, ParticleTypes.LAVA))
+    public static final ItemEntry<FloatingParticleItem> TARNISHED_INGOT = REGISTRATE.item("tarnished_ingot", (props) -> new FloatingParticleItem(props, DustParticleOptions.REDSTONE, ParticleTypes.ELECTRIC_SPARK, ParticleTypes.LAVA, true))
             .properties(p->p.tab(MWCore.itemGroup).fireResistant().rarity(Rarity.EPIC))
             .tag(AllTags.forgeItemTag("ingots/tarnished"))
-            .model(AssetLookup.existingItemModel())
-            .color(() -> (() -> new ThreeLayerMixColors(0xffffff, 0xffffff, 0xf6c5c5, 0xf7233e, 0xffffff, 0xffffff)))
             .lang("Ingot of Tarnished Creativity")
+            .register();
+    public static final ItemEntry<TarnishedDeforesterItem> DEFORESTER = REGISTRATE.item("tarnished_deforester", TarnishedDeforesterItem::new)
+            .properties(p -> p.stacksTo(1)
+                    .rarity(Rarity.UNCOMMON))
+            .model(AssetLookup.itemModelWithPartials())
             .register();
 
 
