@@ -6,6 +6,7 @@ import com.pouffydev.mw_core.content.block.contraptions.converter.ConverterBlock
 import com.pouffydev.mw_core.content.block.generators.combustion.CombustionEngineBlock;
 import com.pouffydev.mw_core.content.block.generators.motor.TarnishedMotorBlock;
 import com.pouffydev.mw_core.content.block.generators.motor.TarnishedMotorGenerator;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.WelderBlock;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -226,6 +228,17 @@ public class AllBlocks {
                     .blockstate(BlockStateGen.horizontalBlockProvider(true))
                     .transform(BlockStressDefaults.setCapacity(32.0))
                     .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<WelderBlock> WELDER =
+REGISTRATE.block("welder", WelderBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.color(MaterialColor.PODZOL))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .transform(axeOrPickaxe())
+                    .transform(BlockStressDefaults.setCapacity(32.0))
+                    .item(AssemblyOperatorBlockItem::new)
                     .transform(customItemModel())
                     .register();
     public static void register() {}

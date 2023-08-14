@@ -5,6 +5,9 @@ import com.pouffydev.mw_core.content.block.contraptions.converter.ConverterBlock
 import com.pouffydev.mw_core.content.block.generators.combustion.CombustionEngineBlockEntity;
 import com.pouffydev.mw_core.content.block.generators.motor.TarnishedMotorRenderer;
 import com.pouffydev.mw_core.content.block.generators.motor.TarnishedMotorBlockEntity;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.WelderBlockEntity;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.WelderInstance;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.WelderRenderer;
 import com.simibubi.create.content.kinetics.base.HalfShaftInstance;
 import com.simibubi.create.content.kinetics.base.ShaftInstance;
 import com.simibubi.create.content.kinetics.crafter.ShaftlessCogwheelInstance;
@@ -36,6 +39,13 @@ public class AllBlockEntities {
             .blockEntity("combustion_engine", CombustionEngineBlockEntity::new)
             .instance(() -> ShaftlessCogwheelInstance::new)
             .validBlocks(AllBlocks.COMBUSTION_ENGINE)
+            .register();
+
+    public static final BlockEntityEntry<WelderBlockEntity> WELDER = registrate
+            .blockEntity("welder", WelderBlockEntity::new)
+            .instance(() -> WelderInstance::new)
+            .validBlocks(AllBlocks.WELDER)
+            .renderer(() -> WelderRenderer::new)
             .register();
     public static void register() {}
 }

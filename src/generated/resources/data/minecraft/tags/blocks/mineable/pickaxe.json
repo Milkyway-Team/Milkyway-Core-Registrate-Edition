@@ -12,6 +12,7 @@
     "mw_core:creative_block",
     "mw_core:tarnished_block",
     "mw_core:converter",
-    "mw_core:combustion_engine"
+    "mw_core:combustion_engine",
+    "mw_core:welder"
   ]
 }
