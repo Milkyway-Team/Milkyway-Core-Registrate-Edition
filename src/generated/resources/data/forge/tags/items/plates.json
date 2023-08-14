@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "mw_core:slimesteel_sheet",
+    "mw_core:queens_slime_sheet",
+    "mw_core:hepatizon_sheet",
+    "mw_core:constantan_sheet",
+    "mw_core:rose_gold_sheet",
+    "mw_core:amethyst_bronze_sheet",
+    "mw_core:cobalt_sheet",
+    "mw_core:manyullyn_sheet",
+    "mw_core:diamond_sheet",
+    "mw_core:electrum_sheet",
+    "mw_core:enderium_sheet",
+    "mw_core:invar_sheet",
+    "mw_core:lead_sheet",
+    "mw_core:lumium_sheet",
+    "mw_core:netherite_sheet",
+    "mw_core:nickel_sheet",
+    "mw_core:signalum_sheet",
+    "mw_core:silver_sheet",
+    "mw_core:tin_sheet"
+  ]
+}

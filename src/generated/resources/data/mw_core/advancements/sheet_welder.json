@@ -1,0 +1,30 @@
+{
+  "parent": "mw_core:root",
+  "display": {
+    "icon": {
+      "item": "mw_core:sturdy_brass_sheet"
+    },
+    "title": {
+      "translate": "advancement.mw_core.sheet_welder"
+    },
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.mw_core.sheet_welder.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "0": {
+      "trigger": "create:sheet_welder_builtin",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ]
+}

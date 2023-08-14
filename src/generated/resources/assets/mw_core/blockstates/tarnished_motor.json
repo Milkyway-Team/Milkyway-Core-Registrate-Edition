@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "mw_core:block/tarnished_motor/block_vertical",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "mw_core:block/tarnished_motor/block_vertical"
+    },
+    "facing=north": {
+      "model": "mw_core:block/tarnished_motor/block",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "mw_core:block/tarnished_motor/block"
+    },
+    "facing=west": {
+      "model": "mw_core:block/tarnished_motor/block",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "mw_core:block/tarnished_motor/block",
+      "y": 270
+    }
+  }
+}

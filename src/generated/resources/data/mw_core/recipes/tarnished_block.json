@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:ingots/tarnished"
+    }
+  },
+  "result": {
+    "item": "mw_core:tarnished_block"
+  }
+}

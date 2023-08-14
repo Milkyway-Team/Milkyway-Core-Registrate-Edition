@@ -1,0 +1,13 @@
+{
+  "type": "mw_core:welding",
+  "ingredients": [
+    {
+      "tag": "forge:plates/copper"
+    }
+  ],
+  "results": [
+    {
+      "item": "mw_core:sturdy_copper_sheet"
+    }
+  ]
+}

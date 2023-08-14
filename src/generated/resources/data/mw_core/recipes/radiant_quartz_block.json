@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:gems/radiant_quartz"
+    }
+  },
+  "result": {
+    "item": "mw_core:radiant_quartz_block"
+  }
+}

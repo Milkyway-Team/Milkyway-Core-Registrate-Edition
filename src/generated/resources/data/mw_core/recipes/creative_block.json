@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "tag": "forge:ingots/creative"
+    }
+  },
+  "result": {
+    "item": "mw_core:creative_block"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mw_core:block/converter/block"
+    },
+    "facing=south": {
+      "model": "mw_core:block/converter/block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mw_core:block/converter/block",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "mw_core:block/converter/block",
+      "y": 90
+    }
+  }
+}
