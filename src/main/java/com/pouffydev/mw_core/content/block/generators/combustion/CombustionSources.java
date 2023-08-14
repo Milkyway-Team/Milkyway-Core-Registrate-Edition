@@ -1,9 +1,13 @@
 package com.pouffydev.mw_core.content.block.generators.combustion;
 
+import com.simibubi.create.AllBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,10 +18,11 @@ import javax.annotation.Nullable;
 @Mod.EventBusSubscriber
 public class CombustionSources {
 
-    public static int campfire = 4;
+    public static int campfire = 8;
+    public static int soul_campfire = -8;
     public static int blaze_burner_smouldering = 8;
     public static int blaze_burner_kindled = 16;
-    public static int blaze_burner_seething = 32;
+    public static int blaze_burner_seething = 48;
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
         execute(event, event.getWorld(), event.getPos().getX(), event.getPos().getY() - 1, event.getPos().getZ());
@@ -37,14 +42,14 @@ public class CombustionSources {
                 .getBlock() == (Blocks.CAMPFIRE.getStateDefinition().getProperty("lit") instanceof BooleanProperty _withbp1 ? Blocks.CAMPFIRE.defaultBlockState().setValue(_withbp1, (true)) : Blocks.CAMPFIRE.defaultBlockState()).getBlock()) {
             return campfire;
         }
-        //else if ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == (new Object() {
-        //    public BlockState with(BlockState _bs, String _property, String _newValue) {
-        //        Property<?> _prop = _bs.getBlock().getStateDefinition().getProperty(_property);
-        //        return _prop instanceof EnumProperty _ep && _ep.getValue(_newValue).isPresent() ? _bs.setValue(_ep, (Enum) _ep.getValue(_newValue).get()) : _bs;
-        //    }
-        //}.with(AllBlocks.BLAZE_BURNER.getDefaultState(), "blaze", "smouldering")).getBlock()) {
-        //    return blaze_burner_smouldering;
-        //}
+        else if ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == (new Object() {
+            public BlockState with(BlockState _bs, String _property, String _newValue) {
+                Property<?> _prop = _bs.getBlock().getStateDefinition().getProperty(_property);
+                return _prop instanceof EnumProperty _ep && _ep.getValue(_newValue).isPresent() ? _bs.setValue(_ep, (Enum) _ep.getValue(_newValue).get()) : _bs;
+            }
+        }.with(AllBlocks.BLAZE_BURNER.getDefaultState(), "blaze", "smouldering")).getBlock()) {
+            return blaze_burner_smouldering;
+        }
         //else if ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == (new Object() {
         //    public BlockState with(BlockState _bs, String _property, String _newValue) {
         //        Property<?> _prop = _bs.getBlock().getStateDefinition().getProperty(_property);

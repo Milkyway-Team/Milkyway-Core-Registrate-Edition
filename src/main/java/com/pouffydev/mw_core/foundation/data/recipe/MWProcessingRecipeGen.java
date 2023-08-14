@@ -34,7 +34,6 @@ public abstract class MWProcessingRecipeGen extends MilkywayRecipeProvider {
         //GENERATORS.add(new CompactingRecipeGen(gen));
         GENERATORS.add(new MWPressingRecipeGen(gen));
         GENERATORS.add(new WeldingRecipeGen(gen));
-        //GENERATORS.add(new FillingRecipeGen(gen));
         //GENERATORS.add(new EmptyingRecipeGen(gen));
         //GENERATORS.add(new HauntingRecipeGen(gen));
         //GENERATORS.add(new ItemApplicationRecipeGen(gen));

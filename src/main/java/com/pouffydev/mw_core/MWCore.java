@@ -6,6 +6,7 @@ import com.pouffydev.mw_core.content.tinkers.tools.data.material.*;
 import com.pouffydev.mw_core.content.tinkers.tools.data.sprite.MilkywayMaterialSpriteProvider;
 import com.pouffydev.mw_core.foundation.data.MWAdvancements;
 import com.pouffydev.mw_core.foundation.data.recipe.MWProcessingRecipeGen;
+import com.pouffydev.mw_core.foundation.data.recipe.SequencedAssemblyRecipeGen;
 import com.pouffydev.mw_core.index.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.LangMerger;
@@ -83,6 +84,7 @@ public class MWCore {
             gen.addProvider(new MaterialStatsDataProvider(gen, materials));
             gen.addProvider(new MaterialTraitsDataProvider(gen, materials));
             MWProcessingRecipeGen.registerAll(gen);
+            gen.addProvider(new SequencedAssemblyRecipeGen(gen));
         }
     }
 

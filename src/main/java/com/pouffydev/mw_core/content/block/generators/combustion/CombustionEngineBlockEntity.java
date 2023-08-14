@@ -4,11 +4,11 @@ import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-import static com.pouffydev.mw_core.content.block.generators.combustion.CombustionSources.campfire;
+import static com.pouffydev.mw_core.content.block.generators.combustion.CombustionSources.*;
 
 public class CombustionEngineBlockEntity extends GeneratingKineticBlockEntity {
     BlockPos pos = getBlockPos(); // get the position of the block below your block entity
@@ -24,18 +24,46 @@ public class CombustionEngineBlockEntity extends GeneratingKineticBlockEntity {
         //CombustionSources.smoulderingCheck(world, pos.getX(), pos.getY(), pos.getZ());
         //CombustionSources.kindledCheck(world, pos.getX(), pos.getY(), pos.getZ());
         //CombustionSources.seethingCheck(world, pos.getX(), pos.getY(), pos.getZ());
+        CombustionEngineBlockEntity be = (CombustionEngineBlockEntity) world.getBlockEntity(pos);
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
-        if ((world.getBlockState(new BlockPos(x, y - 1, z)))
-                .getBlock() == (Blocks.CAMPFIRE.getStateDefinition().getProperty("lit") instanceof BooleanProperty _withbp1 ? Blocks.CAMPFIRE.defaultBlockState().setValue(_withbp1, (true)) : Blocks.CAMPFIRE.defaultBlockState()).getBlock()) {
-            return campfire;
+        //if ((world.getBlockState(new BlockPos(x, y - 1, z)))
+        //        .getBlock() == (Blocks.CAMPFIRE.getStateDefinition().getProperty("lit") instanceof BooleanProperty _withbp1 ? Blocks.CAMPFIRE.defaultBlockState().setValue(_withbp1, (true)) : Blocks.CAMPFIRE.defaultBlockState()).getBlock()) {
+        //    return campfire;
+        //}
+        //else if ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == Blocks.AIR) {
+        //    return 0;
+        //}
+        return blockChecker(be, world, x, y, z);
+    }
+
+    public float blockChecker(CombustionEngineBlockEntity be, ServerLevel world, double x, double y, double z) {
+        if (world.getBlockState(be.pos.below()) == Blocks.CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(world.getBlockState(be.pos.below()))) {
+            this.speed = campfire;
         }
-        else if ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == Blocks.AIR) {
-            return 0;
+        else if (world.getBlockState(be.pos.below()) == Blocks.SOUL_CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(world.getBlockState(be.pos.below()))) {
+            this.speed = soul_campfire;
         }
         return 0;
     }
+    //public void tick() {
+    //    super.tick();
+    //    ServerLevel world = (ServerLevel) getLevel();
+    //    CombustionEngineBlockEntity blockEntity = (CombustionEngineBlockEntity) getLevel().getBlockEntity(getBlockPos());
+    //    BlockState blockBelow = world.getBlockState(blockEntity.pos.below());
+    //    BlockPos pos = getBlockPos();
+    //    float genSpeed = blockEntity.getGeneratedSpeed();
+    //    double x = pos.getX();
+    //    double y = pos.getY();
+    //    double z = pos.getZ();
+    //    if (world.getBlockState(blockEntity.pos.below()) == Blocks.CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(blockBelow)) {
+    //         this.speed = campfire;
+    //    }
+    //    if (world.getBlockState(blockEntity.pos.below()) == Blocks.SOUL_CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(blockBelow)) {
+    //        this.speed = soul_campfire;
+    //    }
+    //}
 
     @Override
     public boolean isSource() {

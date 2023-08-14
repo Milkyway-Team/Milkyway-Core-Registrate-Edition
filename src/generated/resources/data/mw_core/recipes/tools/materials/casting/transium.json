@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material_fluid",
-  "fluid": {
-    "tag": "mw_core:molten_transium",
-    "amount": 90
-  },
-  "temperature": 900,
-  "output": "mw_core:transium"
-}
