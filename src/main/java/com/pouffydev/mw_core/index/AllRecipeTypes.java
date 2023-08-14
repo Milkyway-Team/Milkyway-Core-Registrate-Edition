@@ -2,6 +2,7 @@ package com.pouffydev.mw_core.index;
 
 import com.pouffydev.mw_core.MWCore;
 import com.pouffydev.mw_core.content.block.contraptions.converter.ConversionRecipe;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.WeldingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
@@ -24,7 +25,8 @@ import java.util.function.Supplier;
 
 public enum AllRecipeTypes implements IRecipeTypeInfo {
 
-    CONVERSION(ConversionRecipe::new);
+    CONVERSION(ConversionRecipe::new),
+    WELDING(WeldingRecipe::new);
 
     private final ResourceLocation id;
     private final RegistryObject<RecipeSerializer<?>> serializerObject;

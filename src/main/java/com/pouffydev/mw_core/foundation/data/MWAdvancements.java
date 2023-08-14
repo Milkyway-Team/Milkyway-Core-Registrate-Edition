@@ -35,6 +35,10 @@ public class MWAdvancements implements DataProvider {
             .description("Advancement tree for Milkyway Core")
             .awardedForFree()
             .special(SILENT)),
+    SHEET_WELDER = create("sheet_welder", b -> b.icon(AllItems.STURDY_BRASS)
+            .title("Watch your fingers!")
+            .description("Assemble a metal Sturdy Sheet by welding Sheets together")
+            .after(ROOT)),
     //CONVERTER = create("converter", b -> b.icon(AllBlocks.MECHANICAL_CONVERTER)
     //        .title("The Sturdiest Rocks")
     //        .description("Assemble a Sturdy Sheet by refining Powdered Obsidian")

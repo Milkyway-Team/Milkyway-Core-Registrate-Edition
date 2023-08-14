@@ -6,6 +6,7 @@ import com.pouffydev.mw_core.content.items.RadiantSteelItem;
 import com.pouffydev.mw_core.content.items.ShadowSteelItem;
 import com.pouffydev.mw_core.content.items.dohickies.FloatingParticleItem;
 import com.pouffydev.mw_core.content.items.dohickies.RadiantQuartzItem;
+import com.pouffydev.mw_core.content.items.tools.blade.TarnishedBladeItem;
 import com.pouffydev.mw_core.content.items.tools.deforester.TarnishedDeforesterItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -148,7 +149,13 @@ public class AllItems {
             .register();
     public static final ItemEntry<TarnishedDeforesterItem> DEFORESTER = REGISTRATE.item("tarnished_deforester", TarnishedDeforesterItem::new)
             .properties(p -> p.stacksTo(1)
-                    .rarity(Rarity.UNCOMMON))
+                    .rarity(Rarity.EPIC))
+            .model(AssetLookup.itemModelWithPartials())
+            .register();
+
+    public static final ItemEntry<TarnishedBladeItem> BLADE = REGISTRATE.item("tarnished_blade", TarnishedBladeItem::new)
+            .properties(p -> p.stacksTo(1)
+                    .rarity(Rarity.EPIC))
             .model(AssetLookup.itemModelWithPartials())
             .register();
 

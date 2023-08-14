@@ -22,7 +22,7 @@ import java.util.List;
 public class TarnishedMotorBlockEntity extends GeneratingKineticBlockEntity {
 
     public static final int DEFAULT_SPEED = 16;
-    public static final int MAX_SPEED = 128;
+    public static final int MAX_SPEED = 256;
 
     protected ScrollValueBehaviour generatedSpeed;
 

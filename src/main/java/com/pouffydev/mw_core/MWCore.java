@@ -1,11 +1,9 @@
 package com.pouffydev.mw_core;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
 import com.pouffydev.mw_core.content.tinkers.tools.data.SmelteryRecipeProvider;
 import com.pouffydev.mw_core.content.tinkers.tools.data.material.*;
-import com.pouffydev.mw_core.content.tinkers.tools.data.sprite.ForgedMaterialSpriteProvider;
+import com.pouffydev.mw_core.content.tinkers.tools.data.sprite.MilkywayMaterialSpriteProvider;
 import com.pouffydev.mw_core.foundation.data.MWAdvancements;
 import com.pouffydev.mw_core.foundation.data.recipe.MWProcessingRecipeGen;
 import com.pouffydev.mw_core.index.*;
@@ -20,9 +18,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -30,15 +26,6 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
-import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MWCore.ID)
@@ -84,7 +71,7 @@ public class MWCore {
         DataGenerator gen = event.getGenerator();
         if (event.includeClient()) {
             gen.addProvider(new LangMerger(gen, ID, "Create: Milkyway", AllLangPartials.values()));
-            ForgedMaterialSpriteProvider materialSprites = new ForgedMaterialSpriteProvider();
+            MilkywayMaterialSpriteProvider materialSprites = new MilkywayMaterialSpriteProvider();
             gen.addProvider(new MaterialRenderInfoProvider(gen, materialSprites));
         }
         if (event.includeServer()) {

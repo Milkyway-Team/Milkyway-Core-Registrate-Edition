@@ -92,7 +92,8 @@ public class AllTags {
     }
     public enum AllItemTags {
          RADIANT_QUARTZ(FORGE, "gems/radiant_quartz"),
-        CRUSHED_ORE(CREATE, "crushed_ores")
+        CRUSHED_ORE(CREATE, "crushed_ores"),
+        STURDY_SHEETS(FORGE, "plates/sturdy"),
 
         ;
 

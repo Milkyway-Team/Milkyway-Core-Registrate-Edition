@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSprit
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
-public class ForgedMaterialSpriteProvider extends AbstractMaterialSpriteProvider {
+public class MilkywayMaterialSpriteProvider extends AbstractMaterialSpriteProvider {
 
     @Override
     public String getName() {
