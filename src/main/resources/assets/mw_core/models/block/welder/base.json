@@ -7,9 +7,9 @@
 	"elements": [
 		{
 			"name": "Joint 1",
-			"from": [3, 3, 3],
-			"to": [13, 7, 13],
-			"rotation": {"angle": 0, "axis": "y", "origin": [16, 7, 13]},
+			"from": [3, 2, 3],
+			"to": [13, 6, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 6, 13]},
 			"faces": {
 				"north": {"uv": [7, 11, 5, 16], "rotation": 90, "texture": "#0"},
 				"east": {"uv": [6.5, 11, 8.5, 16], "rotation": 90, "texture": "#0"},
