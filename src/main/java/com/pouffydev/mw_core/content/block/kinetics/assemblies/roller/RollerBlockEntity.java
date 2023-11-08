@@ -1,16 +1,15 @@
 package com.pouffydev.mw_core.content.block.kinetics.assemblies.roller;
 
 import com.google.common.collect.ImmutableList;
-import com.simibubi.create.AllRecipeTypes;
+import com.pouffydev.mw_core.index.AllRecipeTypes;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
-import com.simibubi.create.content.kinetics.saw.CuttingRecipe;
-import com.simibubi.create.content.kinetics.saw.SawBlock;
 import com.simibubi.create.content.processing.recipe.ProcessingInventory;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
 import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.recipe.RecipeConditions;
 import com.simibubi.create.foundation.recipe.RecipeFinder;
@@ -29,8 +28,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -53,9 +50,11 @@ public class RollerBlockEntity extends KineticBlockEntity {
     public ProcessingInventory inventory;
     private int recipeIndex;
     private final LazyOptional<IItemHandler> invProvider;
+    private FilteringBehaviour filtering;
+    
     private ItemStack playEvent;
-    public RollerBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
-        super(typeIn, pos, state);
+    public RollerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
         inventory = new ProcessingInventory(this::start).withSlotLimit(!AllConfigs.server().recipes.bulkCutting.get());
         inventory.remainingTime = -1;
         recipeIndex = 0;
@@ -63,17 +62,25 @@ public class RollerBlockEntity extends KineticBlockEntity {
         playEvent = ItemStack.EMPTY;
     }
     @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        super.addBehaviours(behaviours);
+        filtering = new FilteringBehaviour(this, new RollerFilterSlot()).forRecipes();
+        behaviours.add(filtering);
+        behaviours.add(new DirectBeltInputBehaviour(this).allowingBeltFunnelsWhen(this::canProcess));
+        registerAwardables(behaviours, AllAdvancements.SAW_PROCESSING);
+    }
+    @Override
     public void write(CompoundTag compound, boolean clientPacket) {
         compound.put("Inventory", inventory.serializeNBT());
         compound.putInt("RecipeIndex", recipeIndex);
         super.write(compound, clientPacket);
-
+        
         if (!clientPacket || playEvent.isEmpty())
             return;
         compound.put("PlayEvent", playEvent.serializeNBT());
         playEvent = ItemStack.EMPTY;
     }
-
+    
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
@@ -87,14 +94,14 @@ public class RollerBlockEntity extends KineticBlockEntity {
     protected AABB createRenderBoundingBox() {
         return new AABB(worldPosition).inflate(.125f);
     }
-
+    
     @Override
     @OnlyIn(Dist.CLIENT)
     public void tickAudio() {
         super.tickAudio();
         if (getSpeed() == 0)
             return;
-
+        
         if (!playEvent.isEmpty()) {
             boolean isWood = false;
             Item item = playEvent.getItem();
@@ -116,7 +123,7 @@ public class RollerBlockEntity extends KineticBlockEntity {
         //if (shouldRun() && ticksUntilNextProgress < 0)
         //    destroyNextTick();
         super.tick();
-
+        
         if (!canProcess())
             return;
         if (getSpeed() == 0)
@@ -126,13 +133,13 @@ public class RollerBlockEntity extends KineticBlockEntity {
                 start(inventory.getStackInSlot(0));
             return;
         }
-
+        
         float processingSpeed = Mth.clamp(Math.abs(getSpeed()) / 24, 1, 128);
         inventory.remainingTime -= processingSpeed;
-
+        
         if (inventory.remainingTime > 0)
             spawnParticles(inventory.getStackInSlot(0));
-
+        
         if (inventory.remainingTime < 5 && !inventory.appliedRecipe) {
             if (level.isClientSide && !isVirtual())
                 return;
@@ -144,13 +151,13 @@ public class RollerBlockEntity extends KineticBlockEntity {
             sendData();
             return;
         }
-
+        
         Vec3 itemMovement = getItemMovementVec();
         Direction itemMovementFacing = Direction.getNearest(itemMovement.x, itemMovement.y, itemMovement.z);
         if (inventory.remainingTime > 0)
             return;
         inventory.remainingTime = 0;
-
+        
         for (int slot = 0; slot < inventory.getSlots(); slot++) {
             ItemStack stack = inventory.getStackInSlot(slot);
             if (stack.isEmpty())
@@ -167,7 +174,7 @@ public class RollerBlockEntity extends KineticBlockEntity {
                     return;
             }
         }
-
+        
         BlockPos nextPos = worldPosition.offset(itemMovement.x, itemMovement.y, itemMovement.z);
         DirectBeltInputBehaviour behaviour = BlockEntityBehaviour.get(level, nextPos, DirectBeltInputBehaviour.TYPE);
         if (behaviour != null) {
@@ -192,7 +199,7 @@ public class RollerBlockEntity extends KineticBlockEntity {
             }
             return;
         }
-
+        
         // Eject Items
         Vec3 outPos = VecHelper.getCenterOf(worldPosition)
                 .add(itemMovement.scale(.5f)
@@ -217,31 +224,31 @@ public class RollerBlockEntity extends KineticBlockEntity {
         super.invalidate();
         invProvider.invalidate();
     }
-
+    
     @Override
     public void destroy() {
         super.destroy();
         ItemHelper.dropContents(level, worldPosition, inventory);
     }
-
+    
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side != Direction.DOWN)
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return invProvider.cast();
         return super.getCapability(cap, side);
     }
-
+    
     protected void spawnEventParticles(ItemStack stack) {
         if (stack == null || stack.isEmpty())
             return;
-
+        
         ParticleOptions particleData = null;
         if (stack.getItem() instanceof BlockItem)
             particleData = new BlockParticleOption(ParticleTypes.BLOCK, ((BlockItem) stack.getItem()).getBlock()
                     .defaultBlockState());
         else
             particleData = new ItemParticleOption(ParticleTypes.ITEM, stack);
-
+        
         Random r = level.random;
         Vec3 v = VecHelper.getCenterOf(this.worldPosition)
                 .add(0, 5 / 16f, 0);
@@ -250,11 +257,11 @@ public class RollerBlockEntity extends KineticBlockEntity {
             level.addParticle(particleData, v.x, v.y, v.z, m.x, m.y, m.y);
         }
     }
-
+    
     protected void spawnParticles(ItemStack stack) {
         if (stack == null || stack.isEmpty())
             return;
-
+        
         ParticleOptions particleData = null;
         float speed = 1;
         if (stack.getItem() instanceof BlockItem)
@@ -264,7 +271,7 @@ public class RollerBlockEntity extends KineticBlockEntity {
             particleData = new ItemParticleOption(ParticleTypes.ITEM, stack);
             speed = .125f;
         }
-
+        
         Random r = level.random;
         Vec3 vec = getItemMovementVec();
         Vec3 pos = VecHelper.getCenterOf(this.worldPosition);
@@ -275,59 +282,58 @@ public class RollerBlockEntity extends KineticBlockEntity {
         level.addParticle(particleData, pos.x() + -vec.x * offset, pos.y() + .45f, pos.z() + -vec.z * offset,
                 -vec.x * speed, r.nextFloat() * speed, -vec.z * speed);
     }
-
+    
     public Vec3 getItemMovementVec() {
-        boolean alongX = !getBlockState().getValue(SawBlock.AXIS_ALONG_FIRST_COORDINATE);
+        boolean alongX = !getBlockState().getValue(RollerBlock.AXIS_ALONG_FIRST_COORDINATE);
         int offset = getSpeed() < 0 ? -1 : 1;
         return new Vec3(offset * (alongX ? 1 : 0), 0, offset * (alongX ? 0 : -1));
     }
-
+    
     private void applyRecipe() {
         List<? extends Recipe<?>> recipes = getRecipes();
         if (recipes.isEmpty())
             return;
         if (recipeIndex >= recipes.size())
             recipeIndex = 0;
-
+        
         Recipe<?> recipe = recipes.get(recipeIndex);
-
+        
         int rolls = inventory.getStackInSlot(0)
                 .getCount();
         inventory.clear();
-
+        
         List<ItemStack> list = new ArrayList<>();
         for (int roll = 0; roll < rolls; roll++) {
             List<ItemStack> results = new LinkedList<ItemStack>();
-            if (recipe instanceof CuttingRecipe)
-                results = ((CuttingRecipe) recipe).rollResults();
-
+            if (recipe instanceof RollingRecipe)
+                results = ((RollingRecipe) recipe).rollResults();
+            
             for (int i = 0; i < results.size(); i++) {
                 ItemStack stack = results.get(i);
                 ItemHelper.addToList(stack, list);
             }
         }
-
+        
         for (int slot = 0; slot < list.size() && slot + 1 < inventory.getSlots(); slot++)
             inventory.setStackInSlot(slot + 1, list.get(slot));
-
-        award(AllAdvancements.SAW_PROCESSING);
     }
-
+    
     private List<? extends Recipe<?>> getRecipes() {
-        Optional<CuttingRecipe> assemblyRecipe = SequencedAssemblyRecipe.getRecipe(level, inventory.getStackInSlot(0),
-                AllRecipeTypes.CUTTING.getType(), CuttingRecipe.class);
-        if (assemblyRecipe.isPresent())
+        Optional<RollingRecipe> assemblyRecipe = SequencedAssemblyRecipe.getRecipe(level, inventory.getStackInSlot(0),
+                AllRecipeTypes.ROLLING.getType(), RollingRecipe.class);
+        if (assemblyRecipe.isPresent() && filtering.test(assemblyRecipe.get()
+                .getResultItem()))
             return ImmutableList.of(assemblyRecipe.get());
-
-        Predicate<Recipe<?>> types = RecipeConditions.isOfType(AllRecipeTypes.CUTTING.getType());
-
+        
+        Predicate<Recipe<?>> types = RecipeConditions.isOfType(AllRecipeTypes.ROLLING.getType());
         List<Recipe<?>> startedSearch = RecipeFinder.get(cuttingRecipesKey, level, types);
         return startedSearch.stream()
+                .filter(RecipeConditions.outputMatchesFilter(filtering))
                 .filter(RecipeConditions.firstIngredientMatches(inventory.getStackInSlot(0)))
                 .filter(r -> !AllRecipeTypes.shouldIgnoreInAutomation(r))
                 .collect(Collectors.toList());
     }
-
+    
     public void insertItem(ItemEntity entity) {
         if (!canProcess())
             return;
@@ -337,7 +343,7 @@ public class RollerBlockEntity extends KineticBlockEntity {
             return;
         if (level.isClientSide)
             return;
-
+        
         inventory.clear();
         ItemStack remainder = inventory.insertItem(0, entity.getItem()
                 .copy(), false);
@@ -346,7 +352,7 @@ public class RollerBlockEntity extends KineticBlockEntity {
         else
             entity.setItem(remainder);
     }
-
+    
     public void start(ItemStack inserted) {
         if (!canProcess())
             return;
@@ -354,29 +360,29 @@ public class RollerBlockEntity extends KineticBlockEntity {
             return;
         if (level.isClientSide && !isVirtual())
             return;
-
+        
         List<? extends Recipe<?>> recipes = getRecipes();
         boolean valid = !recipes.isEmpty();
         int time = 50;
-
+        
         if (recipes.isEmpty()) {
             inventory.remainingTime = inventory.recipeDuration = 10;
             inventory.appliedRecipe = false;
             sendData();
             return;
         }
-
+        
         if (valid) {
             recipeIndex++;
             if (recipeIndex >= recipes.size())
                 recipeIndex = 0;
         }
-
+        
         Recipe<?> recipe = recipes.get(recipeIndex);
-        if (recipe instanceof CuttingRecipe) {
-            time = ((CuttingRecipe) recipe).getProcessingDuration();
+        if (recipe instanceof RollingRecipe) {
+            time = ((RollingRecipe) recipe).getProcessingDuration();
         }
-
+        
         inventory.remainingTime = time * Math.max(1, (inserted.getCount() / 5));
         inventory.recipeDuration = inventory.remainingTime;
         inventory.appliedRecipe = false;
@@ -384,6 +390,6 @@ public class RollerBlockEntity extends KineticBlockEntity {
     }
 
     protected boolean canProcess() {
-        return getBlockState().getValue(RollerBlock.FACING) == Direction.UP;
+        return level != null && !level.isClientSide && getSpeed() != 0;
     }
 }

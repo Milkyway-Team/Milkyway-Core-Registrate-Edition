@@ -13,6 +13,11 @@
     "mw_core:tarnished_block",
     "mw_core:converter",
     "mw_core:combustion_engine",
-    "mw_core:welder"
+    "mw_core:welder",
+    "mw_core:roller",
+    "mw_core:infuser",
+    "mw_core:reactor_cogwheel",
+    "mw_core:reactor_chamber",
+    "mw_core:pipe_junction"
   ]
 }

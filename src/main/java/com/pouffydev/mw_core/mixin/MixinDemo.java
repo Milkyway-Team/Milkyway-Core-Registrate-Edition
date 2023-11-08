@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinDemo {
     @Inject(method = "init", at = @At("TAIL"))
     private void exampleMixin(CallbackInfo ci) {
-        MWCore.LOGGER.info("Hello World From {}", MWCore.ID);
+        MWCore.LOGGER.info("Hello World From {} Let The Chaos Begin!", MWCore.ID);
     }
 }

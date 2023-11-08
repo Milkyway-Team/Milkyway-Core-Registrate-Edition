@@ -5,15 +5,16 @@ import com.simibubi.create.AllTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class MilkywayRecipeProvider extends RecipeProvider {
-
     protected final List<GeneratedRecipe> all = new ArrayList<>();
 
     public MilkywayRecipeProvider(DataGenerator generator) {
@@ -94,6 +95,7 @@ public abstract class MilkywayRecipeProvider extends RecipeProvider {
             return AllTags.forgeItemTag("plates/zinc");
         }
         static TagKey<Item> radiantQuartz(){return AllTags.forgeItemTag("gems/radiant_quartz");}
+        static TagKey<Item> mithrilNugget(){return AllTags.forgeItemTag("nuggets/mithril");}
 
         }
     }

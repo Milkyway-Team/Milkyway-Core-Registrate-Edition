@@ -5,7 +5,7 @@
     },
     "tconstruct:extra": {},
     "tconstruct:handle": {
-      "durability": 2.5,
+      "durability": 1.5,
       "miningSpeed": 1.0,
       "attackSpeed": 0.75,
       "attackDamage": 1.0
@@ -13,7 +13,7 @@
     "tconstruct:head": {
       "durability": 500,
       "miningSpeed": 3.0,
-      "harvestTier": "minecraft:netherite",
+      "harvestTier": "minecraft:diamond",
       "attack": 2.4
     },
     "tconstruct:limb": {

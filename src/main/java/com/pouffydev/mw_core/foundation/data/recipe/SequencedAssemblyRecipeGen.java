@@ -3,16 +3,11 @@ package com.pouffydev.mw_core.foundation.data.recipe;
 import com.pouffydev.mw_core.MWCore;
 import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.WeldingRecipe;
 import com.pouffydev.mw_core.index.AllItems;
-import com.pouffydev.mw_core.index.AllTags;
-import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.transfer.FillingRecipe;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeBuilder;
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.function.UnaryOperator;
@@ -21,8 +16,8 @@ public class SequencedAssemblyRecipeGen extends MilkywayRecipeProvider {
 	GeneratedRecipe
 
 	STURDY_IRON = create("sturdy_iron_sheet", b -> b.require(M.ironSheet())
-		.transitionTo(AllItems.UNPROCESSED_IRON.get())
-		.addOutput(AllItems.STURDY_IRON.get(), 10)
+		.transitionTo(AllItems.unprocessedIron.get())
+		.addOutput(AllItems.sturdyIron.get(), 10)
 		.loops(2)
 		.addStep(DeployerApplicationRecipe::new, rb -> rb.require(M.ironSheet()))
 		.addStep(WeldingRecipe::new, rb -> rb)

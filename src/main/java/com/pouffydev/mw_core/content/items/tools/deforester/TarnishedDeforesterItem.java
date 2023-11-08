@@ -3,7 +3,6 @@ package com.pouffydev.mw_core.content.items.tools.deforester;
 import com.pouffydev.mw_core.index.AllItems;
 import com.pouffydev.mw_core.index.AllToolTiers;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandItemRenderer;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -14,6 +13,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -49,7 +49,10 @@ public class TarnishedDeforesterItem extends AxeItem {
         TreeCutter.findTree(worldIn, pos).destroyBlocks(worldIn, player, (dropPos, item) -> dropItemFromCutTree(worldIn, pos, vec, dropPos, item));
         deforesting = false;
     }
-
+    @Override
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.NONE;
+    }
     @SubscribeEvent
     public static void onBlockDestroyed(BlockEvent.BreakEvent event) {
         ItemStack heldItemMainhand = event.getPlayer().getItemInHand(InteractionHand.MAIN_HAND);

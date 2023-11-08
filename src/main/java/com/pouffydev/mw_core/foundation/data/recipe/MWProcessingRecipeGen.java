@@ -1,10 +1,12 @@
 package com.pouffydev.mw_core.foundation.data.recipe;
 
+import com.pouffydev.mw_core.MWCore;
 import com.simibubi.create.Create;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
+import com.simibubi.create.foundation.data.recipe.MixingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import net.minecraft.data.DataGenerator;
@@ -29,9 +31,9 @@ public abstract class MWProcessingRecipeGen extends MilkywayRecipeProvider {
         //GENERATORS.add(new CuttingRecipeGen(gen));
         //GENERATORS.add(new WashingRecipeGen(gen));
         //GENERATORS.add(new PolishingRecipeGen(gen));
-        //GENERATORS.add(new DeployingRecipeGen(gen));
-        //GENERATORS.add(new MixingRecipeGen(gen));
-        //GENERATORS.add(new CompactingRecipeGen(gen));
+        GENERATORS.add(new DecimatingRecipeGen(gen));
+        GENERATORS.add(new MWMixingRecipeGen(gen));
+        GENERATORS.add(new RollingRecipeGen(gen));
         GENERATORS.add(new MWPressingRecipeGen(gen));
         GENERATORS.add(new WeldingRecipeGen(gen));
         //GENERATORS.add(new EmptyingRecipeGen(gen));
@@ -81,9 +83,8 @@ public abstract class MWProcessingRecipeGen extends MilkywayRecipeProvider {
      * Create a processing recipe with a single itemstack ingredient, using its id
      * as the name of the recipe
      */
-    <T extends ProcessingRecipe<?>> GeneratedRecipe create(Supplier<ItemLike> singleIngredient,
-                                                                                UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
-        return create(Create.ID, singleIngredient, transform);
+    <T extends ProcessingRecipe<?>> GeneratedRecipe create(Supplier<ItemLike> singleIngredient, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
+        return create(MWCore.ID, singleIngredient, transform);
     }
 
     protected <T extends ProcessingRecipe<?>> GeneratedRecipe createWithDeferredId(Supplier<ResourceLocation> name,
@@ -111,7 +112,7 @@ public abstract class MWProcessingRecipeGen extends MilkywayRecipeProvider {
      */
     <T extends ProcessingRecipe<?>> GeneratedRecipe create(String name,
                                                                                 UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
-        return create(Create.asResource(name), transform);
+        return create(MWCore.asResource(name), transform);
     }
 
     protected abstract IRecipeTypeInfo getRecipeType();
@@ -124,13 +125,13 @@ public abstract class MWProcessingRecipeGen extends MilkywayRecipeProvider {
         return () -> {
             ResourceLocation registryName = RegisteredObjects.getKeyOrThrow(item.get()
                     .asItem());
-            return Create.asResource(registryName.getPath() + suffix);
+            return MWCore.asResource(registryName.getPath() + suffix);
         };
     }
 
     @Override
     public String getName() {
-        return "Create's Processing Recipes: " + getRecipeType().getId()
+        return "Milkyway's Processing Recipes: " + getRecipeType().getId()
                 .getPath();
     }
 }

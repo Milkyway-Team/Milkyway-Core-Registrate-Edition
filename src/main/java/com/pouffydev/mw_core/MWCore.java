@@ -1,25 +1,29 @@
 package com.pouffydev.mw_core;
 
 import com.mojang.logging.LogUtils;
-import com.pouffydev.mw_core.content.tinkers.tools.data.SmelteryRecipeProvider;
-import com.pouffydev.mw_core.content.tinkers.tools.data.material.*;
-import com.pouffydev.mw_core.content.tinkers.tools.data.sprite.MilkywayMaterialSpriteProvider;
-import com.pouffydev.mw_core.foundation.data.MWAdvancements;
+import com.pouffydev.mw_core.compat.tconstruct.tools.data.material.*;
+import com.pouffydev.mw_core.content.block.fluid.OpenEndedPipeEffects;
+import com.pouffydev.mw_core.compat.tconstruct.tools.data.SmelteryRecipeProvider;
+import com.pouffydev.mw_core.compat.tconstruct.tools.data.sprite.MilkywayMaterialSpriteProvider;
+import com.pouffydev.mw_core.foundation.MWRegistrate;
+import com.pouffydev.mw_core.foundation.client.particle.MWParticles;
+import com.pouffydev.mw_core.foundation.config.MWConfigs;
+import com.pouffydev.mw_core.foundation.data.advancement.MWTriggers;
 import com.pouffydev.mw_core.foundation.data.recipe.MWProcessingRecipeGen;
 import com.pouffydev.mw_core.foundation.data.recipe.SequencedAssemblyRecipeGen;
 import com.pouffydev.mw_core.index.*;
-import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.LangMerger;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -31,52 +35,79 @@ import org.slf4j.Logger;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MWCore.ID)
 public class MWCore {
+    /**
+     * Milkyway Core's Mod ID
+     */
     public static final String ID = "mw_core";
-    public static final CreateRegistrate registrate = CreateRegistrate.create(MWCore.ID);
-    // Directly reference a slf4j logger
+    /**
+     * Milkyway Core's Registrate
+     */
+    public static final MWRegistrate registrate = MWRegistrate.create(MWCore.ID);
+    /**
+     * Milkyway Core's Logger
+     */
     public static final Logger LOGGER = LogUtils.getLogger();
-
-    // TODO: Add new icon for your mod's item group
+    
+    /**
+     * Milkyway Core's Item Group
+     */
     public static final CreativeModeTab itemGroup = new CreativeModeTab(ID) {
         @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(Items.AIR);
+        public @NotNull ItemStack makeIcon() {
+            return new ItemStack(AllItems.tarnishedIngot.get());
         }
     };
-
+    /**
+     * Milkyway Core's Constructor
+     */
     public MWCore()
     {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
-        /*
-         For adding simple kinetic blocks this is all you need but for fluids etc.
-         see the Create GitHub repo -
-         https://github.com/Creators-of-Create/Create/tree/mc1.18/dev/src/main/java/com/simibubi/create
-         */
+        ModLoadingContext modLoadingContext = ModLoadingContext.get();
 
-        AllBlocks.register();
-        AllItems.register(eventBus);
+        MWBlocks.register();
+        AllItems.register();
         AllBlockEntities.register();
         AllBlockPartials.register();
         AllRecipeTypes.register(eventBus);
-        AllFluids.FLUIDS.register(eventBus);
+        AllFluids.register();
+        MilkywayRegistryUtils.FLUIDS.register(eventBus);
+        MWParticles.PARTICLE_TYPES.register(eventBus);
         registrate.registerEventListeners(eventBus);
-
+        AllEntities.register();
+        AllPackets.registerPackets();
+        MWConfigs.register(modLoadingContext);
+        MWTags.init();
+        
         eventBus.addListener(EventPriority.LOWEST, MWCore::gatherData);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MWClient.onCtorClient(eventBus, forgeEventBus));
     }
-
+    
+    /**
+     * Milkyway Core's Common Setup
+     */
+    @SubscribeEvent
+    public static void init(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            MWTriggers.register();
+            OpenEndedPipeEffects.register();
+            //MWAdvancements.register();
+        });
+    }
+    /**
+     * Milkyway Core's Data Generator
+     */
     public static void gatherData(@NotNull GatherDataEvent event) {
-        //TagGen.datagen();
         DataGenerator gen = event.getGenerator();
+        //gen.addProvider(new MWAdvancements(gen));
         if (event.includeClient()) {
             gen.addProvider(new LangMerger(gen, ID, "Create: Milkyway", AllLangPartials.values()));
             MilkywayMaterialSpriteProvider materialSprites = new MilkywayMaterialSpriteProvider();
             gen.addProvider(new MaterialRenderInfoProvider(gen, materialSprites));
         }
         if (event.includeServer()) {
-            gen.addProvider(new MWAdvancements(gen));
             MaterialDataProvider materials = new MaterialDataProvider(gen);
             gen.addProvider(materials);
             gen.addProvider(new SmelteryRecipeProvider(gen));
@@ -87,15 +118,26 @@ public class MWCore {
             gen.addProvider(new SequencedAssemblyRecipeGen(gen));
         }
     }
-
+    /**
+     * Gets a uses Milkyway Core's ID for a resource location
+     * @param path  Path
+     * @return  Resource location path
+     */
     @Contract("_ -> new")
     public static @NotNull ResourceLocation asResource(String path) {
         return new ResourceLocation(ID, path);
     }
-
+    /**
+     * Gets a resource location for Milkyway Core
+     * @param name  Name
+     * @return  Resource location instance
+     */
+    public static ResourceLocation getResource(String name) {
+        return new ResourceLocation(ID, name);
+    }
     private void setup(final FMLCommonSetupEvent event) {}
 
-    public static @NotNull CreateRegistrate registrate() {
+    public static @NotNull MWRegistrate registrate() {
         return registrate;
     }
 

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "mw_core:flowing_refined_magic",
+    "mw_core:refined_magic"
+  ]
+}

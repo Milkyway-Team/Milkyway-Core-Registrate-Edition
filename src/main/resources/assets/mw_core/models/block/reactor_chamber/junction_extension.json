@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "mw_core:block/beam_amplifier",
+		"particle": "mw_core:block/beam_amplifier"
+	},
+	"elements": [
+		{
+			"from": [-1, 13, -1],
+			"to": [17, 19, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 16, 0]},
+			"faces": {
+				"north": {"uv": [0, 0, 6, 2], "texture": "#0"},
+				"east": {"uv": [0, 0, 6, 2], "texture": "#0"},
+				"south": {"uv": [0, 0, 6, 2], "texture": "#0"},
+				"west": {"uv": [0, 0, 6, 2], "texture": "#0"},
+				"up": {"uv": [0, 2, 6, 8], "texture": "#0"},
+				"down": {"uv": [0, 2, 6, 8], "texture": "#0"}
+			}
+		}
+	]
+}

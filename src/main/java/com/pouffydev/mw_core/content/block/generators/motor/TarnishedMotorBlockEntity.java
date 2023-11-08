@@ -2,7 +2,7 @@ package com.pouffydev.mw_core.content.block.generators.motor;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllBlocks;
+import com.pouffydev.mw_core.index.MWBlocks;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.content.kinetics.motor.KineticScrollValueBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -51,7 +51,7 @@ public class TarnishedMotorBlockEntity extends GeneratingKineticBlockEntity {
 
     @Override
     public float getGeneratedSpeed() {
-        if (!AllBlocks.CREATIVE_MOTOR.has(getBlockState()))
+        if (!MWBlocks.TARNISHED_MOTOR.has(getBlockState()))
             return 0;
         return convertToDirection(generatedSpeed.getValue(), getBlockState().getValue(TarnishedMotorBlock.FACING));
     }

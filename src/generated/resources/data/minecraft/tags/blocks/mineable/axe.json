@@ -6,6 +6,8 @@
     "mw_core:aluminum_casing",
     "mw_core:converter",
     "mw_core:combustion_engine",
-    "mw_core:welder"
+    "mw_core:welder",
+    "mw_core:roller",
+    "mw_core:infuser"
   ]
 }

@@ -1,12 +1,9 @@
 package com.pouffydev.mw_core.content.block.kinetics.assemblies.welder;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehaviour;
 import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour;
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
-import com.simibubi.create.content.kinetics.press.BeltPressingCallbacks;
-import com.simibubi.create.content.kinetics.press.PressingBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.NBTHelper;
@@ -87,15 +84,6 @@ public class WeldingBehaviour extends BeltProcessingBehaviour {
             compound.put("ParticleItems", NBTHelper.writeCompoundList(particleItems, ItemStack::serializeNBT));
             particleItems.clear();
         }
-    }
-    public float getRenderedHeadOffset(float partialTicks) {
-        if (!running)
-            return 0;
-        int runningTicks = Math.abs(this.runningTicks);
-        float ticks = Mth.lerp(partialTicks, prevRunningTicks, runningTicks);
-        if (runningTicks < (CYCLE * 2) / 3)
-            return (float) Mth.clamp(Math.pow(ticks / CYCLE * 2, 3), 0, 1);
-        return Mth.clamp((CYCLE - ticks) / CYCLE * 3, 0, 1);
     }
 
     public void start(Mode mode) {
@@ -243,10 +231,10 @@ public class WeldingBehaviour extends BeltProcessingBehaviour {
         }
     }
     public enum Mode {
-        WORLD(1), BELT(19f / 16f);
-
+        WORLD(1), BELT(19f / 16f), BASIN(22f / 16f);
+        
         public float headOffset;
-
+        
         Mode(float headOffset) {
             this.headOffset = headOffset;
         }

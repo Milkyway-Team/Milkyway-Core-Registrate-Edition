@@ -17,8 +17,7 @@ public class ChromaticAlloyColor implements ItemColor {
         if (layer == 0)
             return Color.mixColors(0x575366, 0x221c34, ((float) Mth.sin(progress) + 1) / 2);
         if (layer == 1)
-            return Color.mixColors(0x969b8b, 0x868982,
-                    ((float) Mth.sin((float) (progress + Math.PI)) + 1) / 2);
+            return Color.mixColors(0x969b8b, 0x868982, ((float) Mth.sin((float) (progress + Math.PI)) + 1) / 2);
         if (layer == 2)
             return Color.mixColors(0x9eab63, 0x5a5f48,
                     ((float) Mth.sin((float) (progress * 1.5f + Math.PI)) + 1) / 2);

@@ -1,0 +1,14 @@
+{
+  "type": "mw_core:rolling",
+  "ingredients": [
+    {
+      "tag": "forge:plates/copper"
+    }
+  ],
+  "results": [
+    {
+      "item": "createaddition:copper_wire",
+      "count": 2
+    }
+  ]
+}

@@ -18,6 +18,7 @@ public class CombustionFileChecker {
 
     // Access the folder
     public static File combustionSourcesFolder = new File(combustionSourcesPath);
+    public static int speed;
     public static boolean checkJsonFile(String filename) {
             // Get the path to the json file
             String jsonPath = minecraftDir + "/data/mw_core/combustion_sources/" + filename;

@@ -86,7 +86,7 @@ public class ChromaticSteelItem extends Item {
 
         // Convert to Shadow steel if in void
         if (y < minHeight && y - yMotion < -10 + minHeight && config.enableShadowSteelRecipe.get()) {
-            ItemStack newStack = AllItems.SHADOW_STEEL.asStack();
+            ItemStack newStack = AllItems.shadowSteel.asStack();
             newStack.setCount(stack.getCount());
             data.putBoolean("JustCreated", true);
             entity.setItem(newStack);
@@ -97,7 +97,7 @@ public class ChromaticSteelItem extends Item {
 
         // Convert to Refined Radiance if eaten enough light sources
         if (itemData.getInt("CollectingLight") >= config.lightSourceCountForRefinedRadiance.get()) {
-            ItemStack newStack = AllItems.RADIANT_STEEL.asStack();
+            ItemStack newStack = AllItems.radiantSteel.asStack();
             ItemEntity newEntity = new ItemEntity(world, entity.getX(), entity.getY(), entity.getZ(), newStack);
             newEntity.setDeltaMovement(entity.getDeltaMovement());
             newEntity.getPersistentData()
@@ -142,7 +142,7 @@ public class ChromaticSteelItem extends Item {
         }
 
         if (isOverBeacon) {
-            ItemStack newStack = AllItems.RADIANT_STEEL.asStack();
+            ItemStack newStack = AllItems.radiantSteel.asStack();
             newStack.setCount(stack.getCount());
             data.putBoolean("JustCreated", true);
             entity.setItem(newStack);

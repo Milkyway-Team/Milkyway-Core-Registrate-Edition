@@ -2,6 +2,9 @@ package com.pouffydev.mw_core.index;
 
 import com.pouffydev.mw_core.MWCore;
 import com.pouffydev.mw_core.content.block.contraptions.converter.ConversionRecipe;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.infuser.Infusing;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.roller.RollingRecipe;
+import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.DecimatingRecipe;
 import com.pouffydev.mw_core.content.block.kinetics.assemblies.welder.WeldingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
@@ -26,8 +29,11 @@ import java.util.function.Supplier;
 public enum AllRecipeTypes implements IRecipeTypeInfo {
 
     CONVERSION(ConversionRecipe::new),
-    WELDING(WeldingRecipe::new);
-
+    WELDING(WeldingRecipe::new),
+    ROLLING(RollingRecipe::new),
+    INFUSING(Infusing::new),
+    DECIMATING(DecimatingRecipe::new),
+    ;
     private final ResourceLocation id;
     private final RegistryObject<RecipeSerializer<?>> serializerObject;
     @Nullable
@@ -89,6 +95,11 @@ public enum AllRecipeTypes implements IRecipeTypeInfo {
     public <C extends Container, T extends Recipe<C>> Optional<T> find(C inv, Level world) {
         return world.getRecipeManager()
                 .getRecipeFor(getType(), inv, world);
+    }
+    public static boolean shouldIgnoreInAutomation(Recipe<?> recipe) {
+        return recipe.getId()
+                .getPath()
+                .endsWith("_manual_only");
     }
 
 

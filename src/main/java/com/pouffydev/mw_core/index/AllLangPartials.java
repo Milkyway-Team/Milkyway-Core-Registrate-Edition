@@ -2,6 +2,7 @@ package com.pouffydev.mw_core.index;
 
 import com.google.gson.JsonElement;
 import com.pouffydev.mw_core.MWCore;
+import com.pouffydev.mw_core.foundation.data.advancement.MWAdvancements;
 import com.simibubi.create.foundation.data.LangPartial;
 import com.simibubi.create.foundation.utility.Lang;
 
@@ -13,6 +14,7 @@ public enum AllLangPartials implements LangPartial {
     TOOLTIPS("Create: Milkyway's Item Descriptions"),
     TINKERS("Create: Milkyway's Tinkers' Construct Compatibility"),
     FLUIDS("Create: Milkyway's Fluids"),
+    //ADVANCEMENTS("Create: Milkyway's Advancements", MWAdvancements::provideLangEntries),
 
             ;
 

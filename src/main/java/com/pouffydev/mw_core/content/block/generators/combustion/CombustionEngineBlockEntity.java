@@ -1,73 +1,108 @@
 package com.pouffydev.mw_core.content.block.generators.combustion;
 
+import com.pouffydev.mw_core.content.block.generators.reactor.chamber.ReactorChamberBlockEntity;
+import com.pouffydev.mw_core.index.MWBlocks;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.pouffydev.mw_core.content.block.generators.combustion.CombustionSources.*;
-
 public class CombustionEngineBlockEntity extends GeneratingKineticBlockEntity {
-    BlockPos pos = getBlockPos(); // get the position of the block below your block entity
     public CombustionEngineBlockEntity(BlockEntityType<CombustionEngineBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        isGenerator = false;
+        updateGenerator = false;
+    }
+    protected boolean isGenerator;
+    protected boolean updateGenerator;
+    protected BlazeBurnerBlock.HeatLevel heatLevel;
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+        if (updateGenerator) {
+            updateGenerator = false;
+            updateGenerator();
+        }
+        if (level == null)
+            return;
+        getHeatLevel();
+        BlockState checkState = level.getBlockState(worldPosition.below());
+        if (checkState.hasProperty(BlazeBurnerBlock.HEAT_LEVEL)) {
+            isGenerator = true;
+            updateGenerator = true;
+        }
+    }
+    @Override
+    protected void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+        if (!wasMoved)
+            isGenerator = compound.getBoolean("Generating");
+    }
+    public void getHeatLevel() {
+        if (level == null)
+            heatLevel = BlazeBurnerBlock.HeatLevel.NONE;
+        BlockState checkState = level.getBlockState(worldPosition.below());
+        if (checkState.hasProperty(BlazeBurnerBlock.HEAT_LEVEL))
+            heatLevel = checkState.getValue(BlazeBurnerBlock.HEAT_LEVEL);
     }
 
+    @Override
+    public void write(CompoundTag compound, boolean clientPacket) {
+        compound.putBoolean("Generating", isGenerator);
+        super.write(compound, clientPacket);
+    }
+    public void queueGeneratorUpdate() {
+        updateGenerator = true;
+    }
+    @Override
+    public float calculateAddedStressCapacity() {
+        return lastCapacityProvided = (isGenerator ? super.calculateAddedStressCapacity() : 0);
+    }
+
+    @Override
+    public float calculateStressApplied() {
+        return isGenerator ? 0 : super.calculateStressApplied();
+    }
+    public void updateGenerator() {
+        BlockState blockState = getBlockState();
+        boolean shouldGenerate = true;
+
+        if (shouldGenerate)
+            shouldGenerate = level != null && level.hasNeighborSignal(worldPosition) && level.isLoaded(worldPosition.below()) && generatorSpeed() > 0;
+
+        if (shouldGenerate == isGenerator)
+            return;
+        isGenerator = shouldGenerate;
+        updateGeneratedRotation();
+    }
+    int generatorSpeed() {
+        if (heatLevel == null)
+            return 0;
+        
+        return switch (heatLevel) {
+            case SMOULDERING, FADING -> 16;
+            case KINDLED -> 32;
+            case SEETHING -> 64;
+            default -> 0;
+        };
+    }
+    public void initialize() {
+        super.initialize();
+        if (!this.hasSource() || this.getGeneratedSpeed() > this.getTheoreticalSpeed()) {
+            this.updateGeneratedRotation();
+        }
+        
+    }
+    public int speed() {
+        return isGenerator ? generatorSpeed() : 0;
+    }
+    public int produceSpeed() {
+        return speed();
+    }
     @Override
     public float getGeneratedSpeed() {
-        ServerLevel world = (ServerLevel) getLevel(); // get the world
-        // calculate and return the generated speed of the machine here
-        //CombustionSources.campfireCheck(world, pos.getX(), pos.getY(), pos.getZ());
-        //CombustionSources.smoulderingCheck(world, pos.getX(), pos.getY(), pos.getZ());
-        //CombustionSources.kindledCheck(world, pos.getX(), pos.getY(), pos.getZ());
-        //CombustionSources.seethingCheck(world, pos.getX(), pos.getY(), pos.getZ());
-        CombustionEngineBlockEntity be = (CombustionEngineBlockEntity) world.getBlockEntity(pos);
-        double x = pos.getX();
-        double y = pos.getY();
-        double z = pos.getZ();
-        //if ((world.getBlockState(new BlockPos(x, y - 1, z)))
-        //        .getBlock() == (Blocks.CAMPFIRE.getStateDefinition().getProperty("lit") instanceof BooleanProperty _withbp1 ? Blocks.CAMPFIRE.defaultBlockState().setValue(_withbp1, (true)) : Blocks.CAMPFIRE.defaultBlockState()).getBlock()) {
-        //    return campfire;
-        //}
-        //else if ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == Blocks.AIR) {
-        //    return 0;
-        //}
-        return blockChecker(be, world, x, y, z);
-    }
-
-    public float blockChecker(CombustionEngineBlockEntity be, ServerLevel world, double x, double y, double z) {
-        if (world.getBlockState(be.pos.below()) == Blocks.CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(world.getBlockState(be.pos.below()))) {
-            this.speed = campfire;
-        }
-        else if (world.getBlockState(be.pos.below()) == Blocks.SOUL_CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(world.getBlockState(be.pos.below()))) {
-            this.speed = soul_campfire;
-        }
-        return 0;
-    }
-    //public void tick() {
-    //    super.tick();
-    //    ServerLevel world = (ServerLevel) getLevel();
-    //    CombustionEngineBlockEntity blockEntity = (CombustionEngineBlockEntity) getLevel().getBlockEntity(getBlockPos());
-    //    BlockState blockBelow = world.getBlockState(blockEntity.pos.below());
-    //    BlockPos pos = getBlockPos();
-    //    float genSpeed = blockEntity.getGeneratedSpeed();
-    //    double x = pos.getX();
-    //    double y = pos.getY();
-    //    double z = pos.getZ();
-    //    if (world.getBlockState(blockEntity.pos.below()) == Blocks.CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(blockBelow)) {
-    //         this.speed = campfire;
-    //    }
-    //    if (world.getBlockState(blockEntity.pos.below()) == Blocks.SOUL_CAMPFIRE.defaultBlockState() && CampfireBlock.isLitCampfire(blockBelow)) {
-    //        this.speed = soul_campfire;
-    //    }
-    //}
-
-    @Override
-    public boolean isSource() {
-        // return true if the machine is a source of rotation, false otherwise
-        return true;
+        return produceSpeed();
     }
 }

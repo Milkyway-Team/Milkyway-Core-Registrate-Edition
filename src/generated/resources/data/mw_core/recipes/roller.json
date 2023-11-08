@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SWS",
+    "ACA",
+    "BMB"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:plates/industrial_iron"
+    },
+    "C": {
+      "item": "create:brass_casing"
+    },
+    "A": {
+      "item": "create:shaft"
+    },
+    "B": {
+      "tag": "forge:ingots/brass"
+    },
+    "M": {
+      "item": "create:precision_mechanism"
+    },
+    "W": {
+      "tag": "forge:storage_blocks/industrial_iron"
+    }
+  },
+  "result": {
+    "item": "mw_core:roller"
+  }
+}

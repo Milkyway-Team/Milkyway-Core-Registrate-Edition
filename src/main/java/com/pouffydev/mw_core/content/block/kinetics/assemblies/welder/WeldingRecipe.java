@@ -1,6 +1,6 @@
 package com.pouffydev.mw_core.content.block.kinetics.assemblies.welder;
 
-import com.pouffydev.mw_core.index.AllBlocks;
+import com.pouffydev.mw_core.index.MWBlocks;
 import com.pouffydev.mw_core.index.AllRecipeTypes;
 import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemblySubCategory;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
@@ -54,11 +54,11 @@ public class WeldingRecipe extends ProcessingRecipe<RecipeWrapper> implements IA
 
     @Override
     public void addRequiredMachines(Set<ItemLike> list) {
-        list.add(AllBlocks.WELDER.get());
+        list.add(MWBlocks.WELDER.get());
     }
 
     @Override
     public Supplier<Supplier<SequencedAssemblySubCategory>> getJEISubCategory() {
-        return () -> SequencedAssemblySubCategory.AssemblyPressing::new;
+        return () -> AssemblyWelding::new;
     }
 }

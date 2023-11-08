@@ -19,6 +19,7 @@
     "mw_core:nickel_sheet",
     "mw_core:signalum_sheet",
     "mw_core:silver_sheet",
-    "mw_core:tin_sheet"
+    "mw_core:tin_sheet",
+    "mw_core:aluminum_sheet"
   ]
 }

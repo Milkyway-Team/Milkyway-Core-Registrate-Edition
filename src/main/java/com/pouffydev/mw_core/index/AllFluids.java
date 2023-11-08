@@ -1,37 +1,33 @@
 package com.pouffydev.mw_core.index;
 
 import com.pouffydev.mw_core.MWCore;
-import com.simibubi.create.AllTags;
+import com.pouffydev.mw_core.content.block.fluid.ChromaticWasteFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
 import slimeknights.mantle.registration.object.FluidObject;
 
-import static com.simibubi.create.Create.REGISTRATE;
+import static com.pouffydev.mw_core.MWCore.registrate;
+import static com.pouffydev.mw_core.index.MilkywayRegistryUtils.*;
 
 public class AllFluids {
-    public static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(MWCore.ID);
 
-    public static FluidObject<ForgeFlowingFluid> transium = register("molten_transium", 1200);
-    public static FluidObject<ForgeFlowingFluid> creatite = register("molten_creatite", 1450);
-    public static FluidObject<ForgeFlowingFluid> fluix = register("molten_fluix", 1200);
-    public static FluidObject<ForgeFlowingFluid> certus = register("molten_certus", 1200);
-    public static FluidObject<ForgeFlowingFluid> chromatic = register("chromatic_waste", 1200);
-    public static FluidObject<ForgeFlowingFluid> magic = register("liquid_magic", 1200);
-    public static FluidObject<ForgeFlowingFluid> pure_creatite = register("molten_pure_creatite", 1450);
-    public static FluidObject<ForgeFlowingFluid> creativity = register("molten_creativity", 1450);
-    public static FluidObject<ForgeFlowingFluid> refined_magic = register("refined_magic", 1200);
-
-    private static FluidObject<ForgeFlowingFluid> register(String name, int temp) {
-        String still = String.format("mw_core:fluid/%s/still", name);
-        String flow = String.format("mw_core:fluid/%s/flowing", name);
-        return FLUIDS.register(name, FluidAttributes.builder(new ResourceLocation(still), new ResourceLocation(flow)).density(2000).viscosity(10000).temperature(temp).sound(SoundEvents.BUCKET_FILL_LAVA, SoundEvents.BUCKET_EMPTY_LAVA), Material.LAVA, 15);
-    }
+    public static FluidObject<ForgeFlowingFluid> transium = registerTinkersFluid("molten_transium", 1200);
+    //public static FluidObject<ForgeFlowingFluid> certus = register("molten_certus", 1200);
+    public static final ResourceLocation chromatic_waste_still = MWCore.asResource("fluid/chromatic_waste/still");
+    public static final ResourceLocation chromatic_waste_flow = MWCore.asResource("fluid/chromatic_waste/flowing");
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> magic = registerFluid("liquid_magic", 1400, 10000, 2000, 15, 4, 1, 25, 100f, true);
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> creatite = registerFluid("molten_creatite", 1450, 10000, 2000, 15, 4, 1, 25, 100f, false);
+    public static FluidEntry<ForgeFlowingFluid.Flowing> pure_creatite = registerFluid("molten_pure_creatite", 1450, 10000, 2000, 15, 4, 1, 25, 100f, false);
+    public static FluidEntry<ForgeFlowingFluid.Flowing> creativity = registerFluid("molten_creativity", 1450, 10000, 2000, 15, 4, 1, 25, 100f, false);
+    public static FluidEntry<ForgeFlowingFluid.Flowing> tarnished_creativity = registerFluid("molten_tarnished_creativity", 1450, 10000, 2000, 15, 4, 1, 25, 100f, false);
+    public static FluidEntry<ForgeFlowingFluid.Flowing> refined_magic = registerFluid("refined_magic", 1200, 10000, 2000, 15, 4, 1, 25, 100f, true);
+    //public static FluidEntry<ForgeFlowingFluid.Flowing> transium = registerFluid("molten_transium", 1200, 10000, 2000, 15, 4, 1, 25, 100f, false);
+    
+    public static final FluidEntry<ChromaticWasteFluid> chromatic_waste = registrate.virtualFluid("chromatic_waste",
+                    chromatic_waste_still, chromatic_waste_flow, null, ChromaticWasteFluid::new)
+            .lang("Chromatic Waste")
+            .attributes(builder -> builder.luminosity(15))
+            .register();
+    public static void register() {}
 }

@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "axis_along_first=false,facing=north,flipped=false": {
+      "model": "mw_core:block/roller/block"
+    },
+    "axis_along_first=true,facing=north,flipped=false": {
+      "model": "mw_core:block/roller/block"
+    },
+    "axis_along_first=false,facing=south,flipped=false": {
+      "model": "mw_core:block/roller/block",
+      "y": 180
+    },
+    "axis_along_first=true,facing=south,flipped=false": {
+      "model": "mw_core:block/roller/block",
+      "y": 180
+    },
+    "axis_along_first=false,facing=west,flipped=false": {
+      "model": "mw_core:block/roller/block",
+      "y": 270
+    },
+    "axis_along_first=true,facing=west,flipped=false": {
+      "model": "mw_core:block/roller/block",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,flipped=false": {
+      "model": "mw_core:block/roller/block",
+      "y": 90
+    },
+    "axis_along_first=true,facing=east,flipped=false": {
+      "model": "mw_core:block/roller/block",
+      "y": 90
+    },
+    "axis_along_first=false,facing=north,flipped=true": {
+      "model": "mw_core:block/roller/block"
+    },
+    "axis_along_first=true,facing=north,flipped=true": {
+      "model": "mw_core:block/roller/block"
+    },
+    "axis_along_first=false,facing=south,flipped=true": {
+      "model": "mw_core:block/roller/block",
+      "y": 180
+    },
+    "axis_along_first=true,facing=south,flipped=true": {
+      "model": "mw_core:block/roller/block",
+      "y": 180
+    },
+    "axis_along_first=false,facing=west,flipped=true": {
+      "model": "mw_core:block/roller/block",
+      "y": 270
+    },
+    "axis_along_first=true,facing=west,flipped=true": {
+      "model": "mw_core:block/roller/block",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,flipped=true": {
+      "model": "mw_core:block/roller/block",
+      "y": 90
+    },
+    "axis_along_first=true,facing=east,flipped=true": {
+      "model": "mw_core:block/roller/block",
+      "y": 90
+    }
+  }
+}

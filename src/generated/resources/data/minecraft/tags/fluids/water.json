@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "mw_core:flowing_liquid_magic",
+    "mw_core:liquid_magic",
+    "mw_core:liquid_magic",
+    "mw_core:flowing_molten_creatite",
+    "mw_core:molten_creatite",
+    "mw_core:flowing_molten_pure_creatite",
+    "mw_core:molten_pure_creatite",
+    "mw_core:flowing_molten_creativity",
+    "mw_core:molten_creativity",
+    "mw_core:flowing_molten_tarnished_creativity",
+    "mw_core:molten_tarnished_creativity",
+    "mw_core:flowing_refined_magic",
+    "mw_core:refined_magic",
+    "mw_core:refined_magic"
+  ]
+}

@@ -1,3 +1,8 @@
 {
-  "itemGroup.mw_core": "Create: Milkyway"
+  "itemGroup.mw_core": "Create: Milkyway",
+
+  "create.dragoness.ammo.attack_damage": "%1$s Attack Damage",
+  "create.dragoness.ammo.reload_ticks": "%1$s Reload Ticks",
+  "create.dragoness.ammo.knockback": "%1$s Knockback",
+  "create.dragoness.ammo.explosive": "Explosive"
 }

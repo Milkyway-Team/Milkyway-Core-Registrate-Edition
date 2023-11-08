@@ -8,6 +8,8 @@
     "mw_core:sturdy_iron_sheet",
     "mw_core:sturdy_copper_sheet",
     "mw_core:sturdy_tin_sheet",
-    "mw_core:sturdy_lead_sheet"
+    "mw_core:sturdy_lead_sheet",
+    "mw_core:sturdy_bronze_sheet",
+    "mw_core:sturdy_aluminum_sheet"
   ]
 }

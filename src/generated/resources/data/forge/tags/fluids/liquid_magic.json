@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "mw_core:flowing_liquid_magic",
+    "mw_core:liquid_magic"
+  ]
+}

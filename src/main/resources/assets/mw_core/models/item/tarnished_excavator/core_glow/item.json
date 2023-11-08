@@ -1,0 +1,32 @@
+{
+	"parent": "mw_core:item/tarnished_excavator/core_glow/core_glow",
+	"loader": "forge:obj",
+	"flip-v": true,
+	"model": "mw_core:models/item/tarnished_excavator/core_glow/core_glow.obj",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, 82.5, 0],
+			"translation": [0, 3.5, 0]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 82.5, 0],
+			"translation": [0, 3.5, 0]
+		},
+		"firstperson_righthand": {
+			"rotation": [-23.5, 105.25, 22.25],
+			"translation": [0.25, 3.25, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-23.5, 105.25, 22.25],
+			"translation": [0.25, 3.25, 0]
+		},
+		"ground": {
+			"rotation": [90, 0, 0]
+		},
+		"gui": {
+			"rotation": [21, -157, 46],
+			"translation": [-2.25, -2.25, 0],
+			"scale": [0.9, 0.9, 0.9]
+		}
+	}
+}

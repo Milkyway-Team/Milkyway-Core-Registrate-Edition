@@ -4,6 +4,11 @@
   "package": "com.pouffydev.mw_core.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "FluidTankBlockMixin",
+    "ItemDrainBlockEntityAccessor",
+    "OpenEndedPipeInvoker",
+    "OpenEndFluidHandlerMixin",
+    "SpoutBlockMixin"
   ],
   "client": [
     "MixinDemo"

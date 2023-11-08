@@ -8,6 +8,8 @@
     "mw_core:reinforced_iron_sheet",
     "mw_core:reinforced_copper_sheet",
     "mw_core:reinforced_tin_sheet",
-    "mw_core:reinforced_lead_sheet"
+    "mw_core:reinforced_lead_sheet",
+    "mw_core:reinforced_bronze_sheet",
+    "mw_core:reinforced_aluminum_sheet"
   ]
 }

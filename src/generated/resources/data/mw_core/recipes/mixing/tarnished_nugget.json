@@ -1,0 +1,47 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "forge:nuggets/mithril"
+    },
+    {
+      "tag": "forge:nuggets/mithril"
+    },
+    {
+      "tag": "forge:nuggets/mithril"
+    },
+    {
+      "tag": "forge:nuggets/mithril"
+    },
+    {
+      "tag": "forge:nuggets/mithril"
+    },
+    {
+      "tag": "forge:nuggets/mithril"
+    },
+    {
+      "item": "mw_core:polished_radiant_quartz"
+    },
+    {
+      "fluid": "mw_core:liquid_magic",
+      "nbt": {},
+      "amount": 250
+    },
+    {
+      "fluid": "mw_core:molten_creatite",
+      "nbt": {},
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "mw_core:tarnished_nugget",
+      "count": 3
+    },
+    {
+      "fluid": "mw_core:chromatic_waste",
+      "amount": 500
+    }
+  ],
+  "heatRequirement": "superheated"
+}
